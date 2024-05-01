@@ -11,7 +11,7 @@ const Card = ({product}) => {
  
   const [toggleWishlist, {isLoading}] = useToggleWishlistMutation()
   
-    const {data:currentUser, isLoading:loading, isError, refetch} = useGetCurrentUserQuery()
+  //  const {data:currentUser, isLoading:loading, isError, refetch} = useGetCurrentUserQuery()
   
   
   const handleToggleWishlist = async()=> {
@@ -26,15 +26,15 @@ const Card = ({product}) => {
         })
         return;
       }
-      refetch()
+      //refetch()
     } catch (error) {
       console.log(error)
     }
   }
-  if(loading) return "loading";
-  if(isError) return 'Error happended'
-  const pro = currentUser.saved.includes(product._id);
-  
+  // if(loading) return "loading";
+  // if(isError) return 'Error happended'
+  // const pro = currentUser.saved.includes(product._id);
+  const pro = false
   return (
     <div className="w-[210px]  max-sm:w-[182px] min-h-auto h-[380px]   rounded-[15px]  flex flex-col shadow-sm border border-[#f5f5f5] ">
          <div className=" bg-[#f5f5f5]  relative flex items-center 
