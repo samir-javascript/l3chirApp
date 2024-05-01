@@ -159,7 +159,7 @@ export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
        
     }
    
-    console.log(images , "preview image")
+   
   return (
     <Dialog open={open} onOpenChange={()=> setOpen(false) }>
       
