@@ -128,7 +128,7 @@ export const verifyToken = asyncHandler( async(req,res)=> {
           user: user._id,
           token: crypto.randomBytes(32).toString("hex")
        })
-       const resetLink  = `${process.env.VITE_BASE_URL}/reset_password?token=${token.token}&user=${user._id}&email=${email}`
+       const resetLink  = `${process.env.VITE_BASE_URL}reset_password?token=${token.token}&user=${user._id}&email=${email}`
        await sendResetMail(user.email,"Password reset for 3chir account", resetLink)
        res.status(200).json(
 
