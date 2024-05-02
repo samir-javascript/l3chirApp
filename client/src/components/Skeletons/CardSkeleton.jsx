@@ -52,8 +52,8 @@ const CardSkeleton = () => {
              <div key={item} className="flex flex-col space-y-3">
              <Skeleton className=" bg-gray-100 w-[210px]  max-sm:w-[161px] min-h-auto h-[200px] rounded-xl" />
              <div className="space-y-2">
-               <Skeleton className="h-4 w-[210px] max-sm:w-[182px] bg-gray-100 " />
-               <Skeleton className="h-4 w-[180px] max-sm:w-[132px] bg-gray-100 " />
+               <Skeleton className="h-4 w-[210px] max-sm:w-[161px] bg-gray-100 " />
+               <Skeleton className="h-4 w-[180px] max-sm:w-[122px] bg-gray-100 " />
              </div>
            </div>
             ))}
