@@ -167,13 +167,13 @@ return (
            
             <div className="space-y-1">
               <Label htmlFor="email">Email Address</Label>
-              <Input value={email} onChange={(e)=> setEmail(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
+              <Input required value={email} onChange={(e)=> setEmail(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
               type="email" id="email" placeholder="joe@gmail.com" />
             </div>
            
             <div className="space-y-1 mt-3">
               <Label  htmlFor="password">Password</Label>
-              <Input value={password} onChange={(e)=> setPassword(e.target.value)}  className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " type="password" id="password"  />
+              <Input required value={password} onChange={(e)=> setPassword(e.target.value)}  className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " type="password" id="password"  />
             </div>
             <Button type="submit" className="bg-[#0aafaa] mt-7 w-full transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] " >
@@ -199,21 +199,21 @@ return (
            
             <div className="space-y-1">
               <Label htmlFor="email">Email Address</Label>
-              <Input value={registerEmail} onChange={(e)=> setRegisterEmail(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
+              <Input required value={registerEmail} onChange={(e)=> setRegisterEmail(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
               type="email" id="email" placeholder="joe@gmail.com" />
             </div>
             <div className="space-y-1">
               <Label htmlFor="name">Full Name</Label>
-              <Input value={username} onChange={(e)=> setUserName(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
+              <Input required value={username} onChange={(e)=> setUserName(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
               type="text" id="name" placeholder="joe rogan" />
             </div>
             <div className="space-y-1">
               <Label htmlFor="password">Password</Label>
-              <Input value={registerPassword} onChange={(e)=> setRegisterPassword(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " type="password" id="password"  />
+              <Input required value={registerPassword} onChange={(e)=> setRegisterPassword(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " type="password" id="password"  />
             </div>
             <div className="space-y-1">
               <Label htmlFor="password">Confirm Password</Label>
-              <Input  value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " type="password" id="password"  />
+              <Input required value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " type="password" id="password"  />
             </div>
             <Button type="submit" className="bg-[#0aafaa] mt-7 w-full transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] flex items-center gap-1 " >
@@ -243,15 +243,20 @@ return (
            
             <div className="space-y-1">
               <Label htmlFor="email">Email Address</Label>
-              <Input value={emailReset} onChange={(e)=> setEmailReset(e.target.value)} className="rounded-[5px] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
+              <Input required value={emailReset} onChange={(e)=> setEmailReset(e.target.value)} className="rounded-[5px]  w-[90%] bg-[#f5f5f5] outline-none placeholder:text-gray-500 " 
               type="email" id="email" placeholder="joe@gmail.com" />
             </div>
            
             
-            <Button disabled={reseting} type="submit" className="bg-[#0aafaa] mt-7 w-full transition-all duration-200
+            <Button disabled={reseting} type="submit" className="bg-[#0aafaa] md:block hidden mt-7 w-[90%]  transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] " >
               {reseting ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "SEND E-MAIL TO RESET YOUR PASSWORD"} 
              </Button>
+             <Button disabled={reseting} type="submit" className="bg-[#0aafaa] md:hidden block mt-7 w-[90%]  transition-all duration-200
+             text-white rounded-[5px] hover:bg-[#174d4b] " >
+              {reseting ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "SEND"} 
+             </Button>
+            
             </form>
            
           </CardContent>

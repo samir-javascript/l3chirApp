@@ -10,7 +10,7 @@ import { useRegisterUserMutation } from "@/slices/UsersApiSlice"
 import { setCredentials } from "@/slices/usersSlice"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const SignUp = () => {
     const [registerPassword,setRegisterPassword] = useState('')
@@ -58,28 +58,28 @@ const SignUp = () => {
     <div className="w-full h-full flex items-center justify-center py-10 relative bg-white">
           <div className="max-w-[1400px] mx-auto ">
                 <div className="flex lg:items-center items-start lg:flex-row flex-col w-full gap-[2rem] lg:gap-[5rem] ">
-                     <div>
+                     <Link to="/">
                           <img className="max-lg:w-[180px] " src={logo} alt="l3chir" />
-                     </div>
+                     </Link>
                      <div className="flex flex-col max-lg:max-w-[400px] w-full gap-2">
-                           <h2 className="text-black font-bold text-[28px] lg:text-[35px] capitalize leading-[2] ">Sign up to continue using <br /> l3chir food app delivery</h2>
+                           <h2 className="text-black font-bold text-[24px] lg:text-[35px] capitalize leading-[2] ">Sign up to continue using <br /> l3chir food app delivery</h2>
                            <div className="shadow-md rounded-[15px] w-full p-5 ">
                                 <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
                                      <div className="flex w-full flex-col gap-2">
                                          <Label>Full Name</Label>
-                                         <Input value={username} onChange={(e)=> setUserName(e.target.value)} disabled={loading} className="bg-gray-100 w-full" type="text" />
+                                         <Input required value={username} onChange={(e)=> setUserName(e.target.value)} disabled={loading} className="bg-gray-100 w-full" type="text" />
                                      </div>
                                      <div className="flex flex-col gap-2">
                                          <Label>Email Address</Label>
-                                         <Input value={registerEmail} onChange={(e)=> setRegisterEmail(e.target.value)} disabled={loading} className="bg-gray-100" type="email" />
+                                         <Input required value={registerEmail} onChange={(e)=> setRegisterEmail(e.target.value)} disabled={loading} className="bg-gray-100" type="email" />
                                      </div>
                                      <div className="flex flex-col gap-2">
                                          <Label>Password</Label>
-                                         <Input value={registerPassword} onChange={(e)=> setRegisterPassword(e.target.value)} disabled={loading} className="bg-gray-100" type="password" />
+                                         <Input required value={registerPassword} onChange={(e)=> setRegisterPassword(e.target.value)} disabled={loading} className="bg-gray-100" type="password" />
                                      </div>
                                      <div className="flex flex-col gap-2">
                                          <Label>Confirm Password</Label>
-                                         <Input value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} disabled={loading} className="bg-gray-100" type="password" />
+                                         <Input required value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} disabled={loading} className="bg-gray-100" type="password" />
                                      </div>
                                      <Button disabled={loading} type="submit" className="bg-[#0aafaa] text-white rounded-[10px] " >
                                         {loading ?  <img src={loader} alt="loading..." className="w-[35px] h-[35px] " />  : "Sign Up"} 
