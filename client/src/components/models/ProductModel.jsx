@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
+import loader from "@/assets/loader.gif"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -262,7 +263,7 @@ export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
                </div>
                <div className="w-full flex gap-2 items-center">
                     <Button disabled={isLoading || updating}  className="bg-[#0aafaa] rounded-[5px] hover:bg-initial hover:opacity-[0.90] text-white w-full  " type="submit">
-                        {isLoading || updating ? "Loading..." : "Valider"}
+                        {isLoading || updating ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "Valider"}
                     </Button>
                     <Button onClick={()=> setOpen(false)} disabled={isLoading  || updating} className="bg-transparent rounded-[5px] border w-full" type="button">Annuler</Button>
                </div>

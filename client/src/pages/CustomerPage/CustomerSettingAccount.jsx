@@ -1,6 +1,7 @@
 import ProfileMobileTabs from "@/components/shared/ProfileMobileTabs"
 import ProfileTabs from "@/components/shared/ProfileTabs"
 import { Button } from "@/components/ui/button"
+import loader from '@/assets/loader.gif'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { setCredentials } from "@/slices/usersSlice"
@@ -106,7 +107,7 @@ const CustomerSettingAccount = () => {
                                       <Input type="password" value={confirmNewPassword} onChange={(e)=> setConfirmNewPassword(e.target.value)}/>
                                    </div>
                                    <Button disabled={isLoading} className="bg-[#00affa] w-fit mt-2 rounded-[5px] font-semibold text-base text-white " type="submit">
-                                     {isLoading ? "Loading..." : "Update Profile"}  
+                                     {isLoading ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "Update Profile"}  
                                    </Button>
                              </form>
                         </div>

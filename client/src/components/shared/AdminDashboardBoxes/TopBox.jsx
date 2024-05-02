@@ -2,12 +2,13 @@
 /* eslint-disable react/prop-types */
 import { useGetUsersWithOrdersQuery } from "@/slices/UsersApiSlice"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import LoadingState from "../Loader"
 
 const TopBox = () => {
 
     const  {data:users,isLoading,isError} = useGetUsersWithOrdersQuery()
     if(isError) return "Error"
-    if(isLoading) return 'Loading...'
+    if(isLoading) return <LoadingState />
   
   return (
     <div className="flex flex-col w-full">

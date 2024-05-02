@@ -7,6 +7,7 @@ import { ResponsiveLine } from "@nivo/line"
 import { useMemo, useState } from "react"
 import { Form } from "react-bootstrap"
 import OverViewChart from "./OverViewChart"
+import LoadingState from "../Loader"
 
 
 
@@ -19,7 +20,7 @@ const Overview = () => {
     const [open,setOpen] = useState(false)
   
    const  [view,setView] = useState("units")
-  if(isLoading) return 'Loading...'
+  if(isLoading) return <LoadingState />
  
   return (
     <div className="flex w-full h-screen bg-[#101538] flex-col">

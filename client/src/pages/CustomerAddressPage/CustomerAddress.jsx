@@ -10,6 +10,7 @@ import { useState } from "react"
 import { useDeleteShipping_addressMutation, useGetShipping_addressQuery } from "@/slices/shippingApiSlice"
 import { toast } from "@/components/ui/use-toast"
 import { clearShippingAddress } from "@/slices/cartSlice"
+import LoadingState from "@/components/shared/Loader"
 const CustomerAddress = () => {
     
     const [open,setOpen] = useState('')
@@ -44,7 +45,7 @@ const CustomerAddress = () => {
         }
      }
      if(isError) return "Error happened"
-     if(isLoading) return "Loading..."
+     if(isLoading) return <LoadingState />
    
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
@@ -174,7 +175,10 @@ const CustomerAddress = () => {
  </Table>
  </div>
  <div> 
-      <Button type="button" className="bg-[#00afaa] font-medium mt-4 text-white rounded-[5px] ">
+      <Button onClick={()=> {
+       setType("edit")
+       setOpen(true)
+      }} type="button" className="bg-[#00afaa] font-medium mt-4 text-white rounded-[5px] ">
       Ajouter une novelle address
       </Button>
  </div>

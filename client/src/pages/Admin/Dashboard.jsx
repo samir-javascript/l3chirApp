@@ -12,6 +12,7 @@ import { useGetProductsQuery, useGetStatesQuery } from "@/slices/ProductsApiSlic
 import { useLocation } from "react-router-dom";
 import Pie from "@/components/shared/AdminDashboardBoxes/Pie";
 import OverViewChart from "@/components/shared/AdminDashboardBoxes/OverViewChart";
+import LoadingState from "@/components/shared/Loader";
 const Dashboard = () => {
   const {search} = useLocation()
     const searchParams = new URLSearchParams(search)
@@ -50,7 +51,7 @@ const Dashboard = () => {
        }
     })
   }
-  if(isLoading || fetching) return "Loading..."
+  if(isLoading || fetching) return <LoadingState />
   console.log(usersCount, "users")
   return (
     <div className="flex w-full h-full bg-[#101538] flex-col">

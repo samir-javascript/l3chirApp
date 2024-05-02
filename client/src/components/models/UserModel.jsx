@@ -8,6 +8,7 @@ import loader from '@/assets/loader.gif'
 
 import { useGetUserByIdQuery, useUpdateUsersMutation } from "@/slices/UsersApiSlice"
 import { toast } from "../ui/use-toast"
+import LoadingState from "../shared/Loader"
 
 
 const UserModel = ({setOpen,open,refetch,id}) => {
@@ -52,7 +53,7 @@ const UserModel = ({setOpen,open,refetch,id}) => {
         }
     }
    if(error) return 
-   if(isLoading) return "Loading..."
+   if(isLoading) return <LoadingState />
   return (
     <Dialog open={open} onOpenChange={()=> setOpen(false) }>
       

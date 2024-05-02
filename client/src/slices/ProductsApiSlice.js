@@ -17,7 +17,14 @@ export const productsSlice = ApiSlice.injectEndpoints({
         }),
         keepUnusedDataFor: 5
       }),
-      // /getProducts_byCategory/:categoryName
+      getRecommendedProducts: builder.query({
+        query: (id)=> ({
+            url: `${PRODUCTS_URL}/getRecommended_products/${id}`,
+           
+        }),
+        keepUnusedDataFor: 5
+      }),
+      // /getRecommended_products/:id
       getProducts: builder.query({
         query: ({pageNumber})=> ({
             url:  PRODUCTS_URL,
@@ -56,7 +63,15 @@ export const productsSlice = ApiSlice.injectEndpoints({
         }),
         providesTags: ['Product']
       }),
+      addProductReview: builder.mutation({
+        query: (data)=> ({
+            url:  `${PRODUCTS_URL}/create-product_review`,
+            method: "POST",
+            body: {...data}
+        }),
+        providesTags: ['Product']
+      }),
     })
-    ///delete-product/:id
+    // /create-product_review
 })
-export const {useCreateNewProductMutation , useGetStatesQuery, useGetProductsByCategoryQuery, useDeleteProductMutation,  useUpdateProductMutation, useGetProductsQuery, useGetProductByIdQuery } = productsSlice
+export const {useCreateNewProductMutation , useGetRecommendedProductsQuery,  useAddProductReviewMutation, useGetStatesQuery, useGetProductsByCategoryQuery, useDeleteProductMutation,  useUpdateProductMutation, useGetProductsQuery, useGetProductByIdQuery } = productsSlice

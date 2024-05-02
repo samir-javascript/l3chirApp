@@ -6,12 +6,13 @@ import { FaAngleLeft } from 'react-icons/fa'
 import { Image } from "react-bootstrap"
 import CommandeInfoMobile from "@/components/shared/CommandInfoMobile"
 import { useSelector } from "react-redux"
+import LoadingState from "@/components/shared/Loader"
 
 const OrderDetails = () => {
     const {id } = useParams()
     const {data:order,isLoading,isError } = useGetOrderByIdQuery(id)
     const  { shippingAddress } = useSelector(state => state.cart)
-    if(isLoading) return "Loading..."
+    if(isLoading) return <LoadingState />
     if(isError) return "Error"
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">

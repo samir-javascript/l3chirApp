@@ -14,6 +14,7 @@ import { FaCheck, FaEdit, FaTimes, FaTrash } from "react-icons/fa"
 import UserModel from "@/components/models/UserModel"
 import { useLocation } from "react-router-dom"
 import Pagination from "@/components/shared/Pagination"
+import LoadingState from "@/components/shared/Loader"
 const UsersList = () => {
 
  const {search} = useLocation()
@@ -50,7 +51,7 @@ const handleDelete = async(id)=> {
 }
 
 if(isError) return "Error"
-if(isLoading) return "Loading..."
+if(isLoading) return <LoadingState />
   return (
     <div className="flex w-full h-full bg-[#101538] flex-col">
     <AdminNavbar open={open} setOpen={setOpen} />

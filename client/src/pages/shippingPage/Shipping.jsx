@@ -11,6 +11,7 @@ import { useCreateNewOrderMutation } from "@/slices/ordersApiSlice"
 import { useState, useEffect } from "react"
 import { toast } from "@/components/ui/use-toast"
 import { useGetShipping_addressQuery } from "@/slices/shippingApiSlice"
+import LoadingState from "@/components/shared/Loader"
 const Shipping = () => {
   const {cartItems} = useSelector(state => state.cart)
  // const { shippingAddress } = useSelector(state => state.cart)
@@ -34,7 +35,7 @@ const Shipping = () => {
       setPhoneNumber(shipping.phoneNumber)
     }
  }, [shipping])
- if(fetching) return 'Loading...'
+ if(fetching) return <LoadingState />
  const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -151,7 +152,7 @@ const Shipping = () => {
                                        <p className="font-normal text-gray-400 leading-[1.7] text-sm  ">Qty: {item.quantity} </p>
                                    </div>
                                        <div>
-                                           <p className="text-[#121212] mt-2 font-semibold text-base ">Dh{item.price} </p>
+                                           <p className="text-[#121212] mt-2 font-semibold text-base ">Dh{item.price.toFixed(2)} </p>
                                        </div>
                                  </div>
                                {/* for desktop ends */}
@@ -174,7 +175,7 @@ const Shipping = () => {
                                        <p className="font-normal text-gray-400 leading-[1.7] text-sm  ">Qty: {item.quantity} </p>
                                             </div>
                                             <div>
-                                           <p className="text-[#121212] mt-2 font-semibold text-base ">Dh{item.price} </p>
+                                           <p className="text-[#121212] mt-2 font-semibold text-base ">Dh{item.price.toFixed(2)} </p>
                                        </div>
 
                                        </div>

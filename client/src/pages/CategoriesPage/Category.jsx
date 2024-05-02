@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { useGetProductsByCategoryQuery } from "@/slices/ProductsApiSlice"
 import { categories } from "@/constants"
 import Card from "@/components/cards/Card"
+import LoadingState from "@/components/shared/Loader"
 const Category = () => {
     const { search} = useLocation()
     const searchParams = new URLSearchParams(search)
@@ -11,7 +12,7 @@ const Category = () => {
     const {data:products, isLoading,isError} = useGetProductsByCategoryQuery(categoryName)
     console.log(products,'Products BY CATEGORY')
     const currentCategory = categories.find((item => item.name === categoryName))
-    if(isLoading) return "Loading..."
+    if(isLoading) return <LoadingState />
     if(isError) return "Error"
 
   return (

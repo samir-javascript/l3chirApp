@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/use-toast"
 import { useGetOrdersQuery } from "@/slices/ordersApiSlice"
 import { Link } from "react-router-dom"
+import LoadingState from "@/components/shared/Loader"
 const OrdersList = () => {
   const {data, isLoading, refetch} = useGetOrdersQuery()
   const [updateStatus, {isLoading:updating}] = useUpdateOrderStatusMutation()
@@ -63,7 +64,7 @@ const OrdersList = () => {
       }
    }
   
-  if(isLoading) return "Loading..."
+  if(isLoading) return <LoadingState />
   return (
     <div className="flex w-full h-screen bg-[#101538] flex-col">
     <AdminNavbar open={open} setOpen={setOpen} />

@@ -56,19 +56,19 @@ const Hero = () => {
                </>
             </Carousel.Item>
             <Carousel.Item>
-               <Link to='/browse-products/Electroménager'>
+               <Link to='/browse_categories?category=tacos'>
                   <Image className='z-[-1] w-full md:h-[600px] h-[500px] !object-cover ' src={banner} fluid alt={"any"} />
                
                </Link>
             </Carousel.Item>
             <Carousel.Item>
-               <Link to='/browse-products/Electroménager'>
+               <Link to='/browse_categories?category=pizza'>
                   <Image className='z-[-1] w-full h-[500px] !object-cover ' src={banner1} fluid alt={"any"} />
                
                </Link>
             </Carousel.Item>
             <Carousel.Item>
-               <Link to='/browse-products/Electroménager'>
+               <Link to='/browse_categories?category=panini'>
                   <Image className='z-[-1] w-full h-[500px] !object-cover ' src={banner2} fluid alt={"any"} />
                
                </Link>

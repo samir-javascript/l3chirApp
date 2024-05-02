@@ -9,12 +9,12 @@ export const usersSlice = ApiSlice.injectEndpoints({
              body: {...data}
          })
        }),
-       getWishlistItems: builder.query({
-        query: ()=> ({
-            url: `${USERS_URL}/get_mywishlist_items`,
-        }),
-        keepUnusedDataFor: 5
-      }),
+      //  getWishlistItems: builder.query({
+      //   query: ()=> ({
+      //       url: `${USERS_URL}/get_mywishlist_items`,
+      //   }),
+      //   keepUnusedDataFor: 5
+      // }),
       updateProfile: builder.mutation({
         query: (data)=> ({
             url: `${USERS_URL}/update_myprofile`,
@@ -52,13 +52,7 @@ export const usersSlice = ApiSlice.injectEndpoints({
             body: {...data}
         })
       }),
-      toggleWishlist: builder.mutation({
-        query: (data)=> ({
-            url: `${USERS_URL}/add-to_wishlist`,
-            method: "POST",
-            body: {...data}
-        })
-      }),
+     
       updateProfilePicture:builder.mutation({
         query:(data)=> ({
            url: `${USERS_URL}/update-profile_image`,
@@ -140,6 +134,30 @@ export const usersSlice = ApiSlice.injectEndpoints({
       
      keepUnusedDataFor : 5
     }),
+    // toggleWishlist: builder.mutation({
+    //   query: (data)=> ({
+    //       url: `${USERS_URL}/add-to_wishlist`,
+    //       method: "POST",
+    //       body: {...data}
+    //   })
+   // }),
+    getCollections: builder.query({
+      query: ({pageNumber})=> ({
+          url: `${USERS_URL}/get_mywishlist_items`,
+          params: {
+            pageNumber
+          }
+      }),
+      keepUnusedDataFor: 5
+    }),
+    toogleWishlistProduct: builder.mutation({
+      query: (data)=> ({
+          url: `${USERS_URL}/addToWishlist`,
+          method: "POST",
+          body: {...data}
+      })
+    }),
+    // /addToWishlist
     usersByMonth: builder.query({
       query: ()=> ({
           url: `${USERS_URL}/getActive_users/months`,
@@ -153,6 +171,6 @@ export const usersSlice = ApiSlice.injectEndpoints({
       
     })
 
-    // /getActive_users/months
+    // /get_wishlist-products
 })
-export const { useAuthUserMutation, useGetUsersWithOrdersQuery, useUsersByMonthQuery, useGetUserByIdQuery, useDeleteUserMutation, useUpdateUsersMutation, useGetUsersQuery, useSaveUserDataMutation, useChangePasswordMutation, useUpdateProfilePictureMutation, useUpdateProfileMutation, useGetWishlistItemsQuery, useGetCurrentUserQuery, useToggleWishlistMutation, useRegisterUserMutation, useLogoutUserMutation, useResetPasswordMutation, useChangeForgotPasswordMutation} = usersSlice
+export const { useAuthUserMutation, useGetCollectionsQuery, useToogleWishlistProductMutation, useGetUsersWithOrdersQuery, useUsersByMonthQuery, useGetUserByIdQuery, useDeleteUserMutation, useUpdateUsersMutation, useGetUsersQuery, useSaveUserDataMutation, useChangePasswordMutation, useUpdateProfilePictureMutation, useUpdateProfileMutation, useGetCurrentUserQuery,  useRegisterUserMutation, useLogoutUserMutation, useResetPasswordMutation, useChangeForgotPasswordMutation} = usersSlice

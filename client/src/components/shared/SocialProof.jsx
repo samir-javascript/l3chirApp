@@ -22,7 +22,7 @@ export function SocialProof() {
  
   const [open,setOpen ]= useState(false)
     const plugin = useRef(
-        Autoplay({ delay: 2000, stopOnInteraction: true })
+        Autoplay({ delay: 4000, stopOnInteraction: true })
       )
     
   //     ref={plugin} plugins={[plugin.current]} onMouseEnter={plugin.current.stop}
@@ -37,7 +37,7 @@ export function SocialProof() {
         </h2>
         <Carousel 
        
- //  ref={plugin} plugins={[plugin?.current]} onMouseEnter={plugin?.current?.stop}
+ // ref={plugin} plugins={[plugin?.current]} onMouseEnter={plugin?.current?.stop}
    //onMouseLeave={plugin?.current?.play}
       opts={{
         align: "start",
@@ -45,7 +45,7 @@ export function SocialProof() {
       }}
       className="w-full carousel max-lg:!overflow-x-hidden ">
       <CarouselContent className="-ml-1">
-        {data.map((item, index) => (
+        { data && data?.length > 0 && data?.map((item, index) => (
             
           <CarouselItem key={index} className="pl-1 mx-3  sm:basis-1/2 lg:basis-1/3">
               <div className="max-w-[450px]  flex flex-col p-4 shadow-md mx-3 bg-[#1c6c76] rounded-lg h-[400px] ">

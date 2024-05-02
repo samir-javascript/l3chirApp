@@ -2,22 +2,35 @@
 /* eslint-disable react/prop-types */
 import { Image } from "react-bootstrap"
 // import salade from '@/assets/tacos.png'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
+import { Skeleton } from "@/components/ui/skeleton"
 import { FaEye , FaHeart, FaRegHeart} from 'react-icons/fa'
-import { useGetCurrentUserQuery, useToggleWishlistMutation } from "@/slices/UsersApiSlice"
+import {   useGetCollectionsQuery, useToogleWishlistProductMutation} from "@/slices/UsersApiSlice"
 import { toast } from "../ui/use-toast"
 import { useSelector } from "react-redux"
+import { useGetCurrentUserQuery } from "@/slices/UsersApiSlice"
+import LoadingState from "../shared/Loader"
+import AuthModel from "../models/AuthModel"
+import { useState } from "react"
 const Card = ({product}) => {
  
-  const [toggleWishlist, {isLoading}] = useToggleWishlistMutation()
+const [open,setOpen] = useState(false)
+  const [toggleWishlist, {isLoading}] = useToogleWishlistProductMutation()
+  const { search } = useLocation()
+  const searchParams = new URLSearchParams(search)
+  const page = parseInt(searchParams.get("page") || 1)
+  const {data, isLoading:loading ,isError:error,refetch} = useGetCollectionsQuery({pageNumber: page})
   
-  //  const {data:currentUser, isLoading:loading, isError, refetch} = useGetCurrentUserQuery()
   
-  
+  const  { userInfo } = useSelector(state => state.auth)
   const handleToggleWishlist = async()=> {
+     if(!userInfo) {
+        setOpen(true)
+     }
     try {
       const res = await toggleWishlist({
-        productId: product._id
+       productId: product && product?._id,
+       userId: userInfo._id
       })
       if(res.error) {
         toast({
@@ -26,15 +39,29 @@ const Card = ({product}) => {
         })
         return;
       }
-      //refetch()
+      refetch()
+      // toast here
     } catch (error) {
       console.log(error)
     }
   }
   // if(loading) return "loading";
   // if(isError) return 'Error happended'
-  // const pro = currentUser.saved.includes(product._id);
-  const pro = false
+   
+  
+  function SkeletonCard() {
+    return (
+      <div className="flex flex-col space-y-3">
+        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
+      </div>
+    )
+  }
+   if(loading) return <SkeletonCard />
+    const pro = data?.wishlist?.productIds?.find((item)=> item === product._id);
   return (
     <div className="w-[210px]  max-sm:w-[182px] min-h-auto h-[380px]   rounded-[15px]  flex flex-col shadow-sm border border-[#f5f5f5] ">
          <div className=" bg-[#f5f5f5]  relative flex items-center 
@@ -55,7 +82,7 @@ const Card = ({product}) => {
          </div>
          <div className="flex flex-col justify-between p-3">
             <div className="mb-6"> 
-            <Link to={`/food_product/${product._id}`} className="text-[#111] line-clamp-2 font-semibold text-[14px] leading-tight hover:text-[#0aafaa] hover:underline capitalize  ">
+            <Link to={`/food_product/${product?._id}`} className="text-[#111] line-clamp-2 font-semibold text-[14px] leading-tight hover:text-[#0aafaa] hover:underline capitalize  ">
                   <p>    
                     {product.name}
                   </p>
@@ -72,6 +99,7 @@ const Card = ({product}) => {
                 </Link>
             </div>
          </div>
+         <AuthModel open={open} setOpen={setOpen} />
     </div>
   )
 }

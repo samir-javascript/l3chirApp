@@ -5,20 +5,21 @@ import { Link, useLocation } from "react-router-dom";
 
 
 
-import { useGetWishlistItemsQuery } from "@/slices/UsersApiSlice";
+import { useGetCollectionsQuery } from "@/slices/UsersApiSlice";
 import ProfileTabs from "@/components/shared/ProfileTabs";
 import Card from "@/components/cards/Card";
 import ProfileMobileTabs from "@/components/shared/ProfileMobileTabs";
 import { Alert, AlertTitle } from "@/components/ui/alert";
+import LoadingState from "@/components/shared/Loader";
+import WishlistSkeleton from "@/components/Skeletons/WishlistSkeleton";
 
 const Wishlist = () => {
       const { search } = useLocation()
       const searchParams = new URLSearchParams(search)
-      const page = parseInt(searchParams.get("page") || 1)
-   const {data, isLoading ,isError} = useGetWishlistItemsQuery({pageNumber: page})
-   if(isLoading) return 'Loading...'
+      const page = parseInt(searchParams.get("pageNumber") || 1)
+   const {data, isLoading ,isError} = useGetCollectionsQuery({pageNumber: page})
+   if(isLoading) return <WishlistSkeleton />
    if(isError) return "Error"
-
  
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
@@ -38,15 +39,15 @@ const Wishlist = () => {
                                    <span className="text-gray-500 text-sm capitalize">/</span>
                                    <Link className="text-gray-500 text-sm capitalize hover:underline" to="/browse_wishlist-items">My favorite items</Link>
                              </div>
-                             <h2 className="text-black text-xl font-semibold ">My favorites <span className="text-gray-500 text-sm font-normal ">- {data.wishlistProducts.length} items</span></h2>
+                             <h2 className="text-black text-xl font-semibold ">My favorites <span className="text-gray-500 text-sm font-normal ">- {data.wishlist.totalProducts} items</span></h2>
                              <p className="text-gray-500 text-sm mt-2">These are your Favourite items. You can order them right now!</p>
                         </div>
                         {/* <h2 className="my-10 sm:mx-14 max-sm:mx-[1.5rem]  font-bold text-[30px]  ">TODAY's SPECIALS</h2> */}
           <div className="flex  mb-10  items-start lg:justify-start justify-center mt-4 flex-wrap gap-3">
-            {data?.wishlistProducts.length > 0 ? data?.wishlistProducts?.map((item)=> {
+            {data ? data?.wishlist?.products?.map((item)=> {
                  
                   return (
-                        <Card key={item._id}  product={item} />
+                        <Card  key={item._id}  product={item} />
                   )
             }): (
                   <Alert className="bg-[#FF9999] max-w-[1000px] mx-auto text-white mt-2 rounded-[4px] ">

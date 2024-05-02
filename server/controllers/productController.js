@@ -114,6 +114,7 @@ export const getProducts = asyncHandler( async(req,res)=> {
    
       const count = await Product.countDocuments()
         const products = await Product.find({})
+
         .limit(pageSize)
         .skip(skipAmount)
         .sort({createdAt: -1})
@@ -156,7 +157,7 @@ export const updateProduct = asyncHandler (async(req,res)=>  {
 
 export const getProductById = asyncHandler (async(req,res)=> {
   
-         const product = await Product.findById(req.params.id)
+         const product = await Product.findById(req.params.id).populate("reviews.user")
          if(!product) {
             res.status(404)
             throw new Error('Product not found')
@@ -191,16 +192,16 @@ export const getProductsByCategory = asyncHandler( async(req,res)=> {
 
 export const createReview = asyncHandler (async(req,res)=> {
   
-    const { comment, rating,productId} = req.body;
+    const { comment, rating,productId, userId, username} = req.body;
     const product = await Product.findById(productId)
     const isAlreadyReviewed = product.reviews.find(item => item.user.toString() === req.user._id.toString())
     if(isAlreadyReviewed) {
       res.status(400)
-      throw new Error("you're not allowed to review a product more than one")
+      throw new Error("you're not allowed to review a product more than one time")
     }
     const review = {
-      name: req.user.name,
-      user: req.user._id,
+      name: username,
+      user: userId,
       comment,
       rating
     }
@@ -212,14 +213,22 @@ export const createReview = asyncHandler (async(req,res)=> {
   
 })
 
-
-//  {text: text, price: extraOptionPrice} 
-
-
-// get product stats
-// admin only
-// GET REQUEST
-// ROUTE: /getProducts/stats
+export const getRecommendedProducts = asyncHandler(async(req,res)=> {
+  try {
+    const product = await Product.findById(req.params.id)
+    if(!product) {
+      res.status(404)
+      throw new Error('Product not found')
+    }
+    const products = await Product.find({
+       category: product.category,
+       _id: {$ne: product._id}
+    })
+        res.status(200).json(products)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 export const getStats = asyncHandler (async(req,res)=> {
  

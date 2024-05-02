@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import AdminNavbar from "./AdminNavbar";
 import { AdminSidebar } from "./AdminSidebar";
 import { ResponsiveLine } from "@nivo/line";
+import LoadingState from "../Loader";
 const Daily = () => {
   const [open,setOpen] = useState(false)
   const {data,isLoading} = useGetStatesQuery()
@@ -40,7 +41,7 @@ const Daily = () => {
       const formattedData = [totalSalesLine,totalUnitesLine]
       return [formattedData]
  }, [data,startDate,endDate])
- if(isLoading) return 'Loading...'
+ if(isLoading) return <LoadingState />
   return (
     <div className="flex w-full h-screen bg-[#101538] flex-col">
     <AdminNavbar open={open} setOpen={setOpen} />

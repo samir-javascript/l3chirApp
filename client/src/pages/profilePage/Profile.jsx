@@ -25,6 +25,8 @@ import { toast } from "@/components/ui/use-toast";
 import { useDispatch, useSelector } from "react-redux";
 import ShippingModal from "@/components/models/ShippingModal";
 import { setCredentials } from "@/slices/usersSlice";
+import LoadingState from "@/components/shared/Loader";
+import ProfileSkeleton from "@/components/Skeletons/ProfileSkeleton";
 const Profile = () => {
    const [open,setOpen] = useState(false)
    const dispatch = useDispatch()
@@ -141,7 +143,7 @@ const handlePersonalInfoData = async(e)=> {
     }
 }
 
- if(fetching) return
+ if(fetching) return <ProfileSkeleton />
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
           <div className="max-w-[1400px] mx-auto">

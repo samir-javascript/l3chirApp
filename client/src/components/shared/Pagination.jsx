@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
   Pagination as Paginate,
@@ -9,7 +10,7 @@ import {
 import { Button } from "../ui/button"
 import { useNavigate } from "react-router-dom"
 
-const Pagination = ({pages,page}) => {
+const Pagination = ({pages,page,wishlist = false}) => {
   const navigate = useNavigate()
   const paginateNext = ()=>  {
      if(page === pages)  return

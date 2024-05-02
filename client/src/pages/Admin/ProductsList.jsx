@@ -3,7 +3,7 @@ import AdminNavbar from "@/components/shared/AdminDashboardBoxes/AdminNavbar"
 import { AdminSidebar } from "@/components/shared/AdminDashboardBoxes/AdminSidebar"
 import { useState } from "react"
 import { Table } from "react-bootstrap"
-import image from "@/assets/burger.png"
+
 import { FaEdit, FaTrash } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 
@@ -12,6 +12,7 @@ import { useDeleteProductMutation, useGetProductByIdQuery, useGetProductsQuery }
 import { toast } from "@/components/ui/use-toast"
 import { useLocation } from "react-router-dom"
 import Pagination from "@/components/shared/Pagination"
+import LoadingState from "@/components/shared/Loader"
 const ProductsList = () => {
   const {search} = useLocation()
     const searchParams = new URLSearchParams(search)
@@ -43,7 +44,7 @@ const ProductsList = () => {
          console.log(error)
        }
     }
-   if(isLoading || fetching) return "Loading..."
+   if(isLoading || fetching) return <LoadingState />
   return (
     <div className="flex w-full h-full bg-[#101538] flex-col">
     <AdminNavbar open={open} setOpen={setOpen} />

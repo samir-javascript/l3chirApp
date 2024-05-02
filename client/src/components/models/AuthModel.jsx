@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-
+import loader from '@/assets/loader.gif'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
@@ -176,7 +176,7 @@ return (
             </div>
             <Button type="submit" className="bg-[#0aafaa] mt-7 w-full transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] " >
-               {isLoading ? 'Loading...' : "Login"}  
+               {isLoading ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "Login"}  
              </Button>
             </form>
             <Button onClick={handleClickModel} type="button" className="bg-transparent hover:text-[#00afaa] mt-5 w-full text-center ">
@@ -216,7 +216,7 @@ return (
             </div>
             <Button type="submit" className="bg-[#0aafaa] mt-7 w-full transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] flex items-center gap-1 " >
-                   {loading ? "Loading..." : <> <FaCheck /> <p>Create account</p></> }
+                   {loading ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : <> <FaCheck /> <p>Create account</p></> }
              </Button>
             </form>
           </CardContent>
@@ -249,7 +249,7 @@ return (
             
             <Button disabled={reseting} type="submit" className="bg-[#0aafaa] mt-7 w-full transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] " >
-              {reseting ? "sending..." : "SEND E-MAIL TO RESET YOUR PASSWORD"} 
+              {reseting ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "SEND E-MAIL TO RESET YOUR PASSWORD"} 
              </Button>
             </form>
            

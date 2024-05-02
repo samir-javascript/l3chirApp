@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken"
 import User from "../models/userModel.js";
-export const protect = async(req,res,next)=> {
+import asyncHandler from "./asyncHandler.js";
+export const protect = asyncHandler( async(req,res,next)=> {
     let token;
     token = req.cookies.restaurantJWT
     if(token) {
@@ -23,8 +24,8 @@ export const protect = async(req,res,next)=> {
     
 }
 
-
-export const admin  = (req,res,next)=> {
+)
+export const admin  = asyncHandler( (req,res,next)=> {
   try {
      if(req.user && req.user.isAdmin) {
          next()
@@ -35,4 +36,4 @@ export const admin  = (req,res,next)=> {
   } catch (error) {
     console.log(error)
   }
-}
+})

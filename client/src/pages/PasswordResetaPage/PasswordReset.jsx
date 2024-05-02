@@ -8,7 +8,7 @@ import { setCredentials } from "@/slices/usersSlice"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useLocation, useNavigate}   from 'react-router-dom'
-
+import loader from "@/assets/loader.gif"
 const PasswordReset = () => {
   const [updatePassword, {isLoading}] = useChangeForgotPasswordMutation()
    
@@ -83,7 +83,7 @@ const PasswordReset = () => {
             </div>
             <Button type="submit" className="bg-[#0aafaa] mt-7 w-full transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] " >
-               {isLoading ? 'Loading...' : "Login"}  
+               {isLoading ? <img src={loader} alt="loading..." className="w-[35px] h-[35px]  " /> : "Login"}  
              </Button>
             </form>
             

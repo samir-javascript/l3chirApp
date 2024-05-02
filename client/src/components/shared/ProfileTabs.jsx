@@ -6,7 +6,7 @@ import { TbAddressBookOff } from "react-icons/tb";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import loader from "@/assets/loader.gif"
 import { RiLogoutCircleLine } from "react-icons/ri";
-import { useGetCurrentUserQuery, useLogoutUserMutation } from "@/slices/UsersApiSlice";
+import {  useLogoutUserMutation } from "@/slices/UsersApiSlice";
 import { logOutUser, setCredentials } from "@/slices/usersSlice";
 import { toast } from "../ui/use-toast";
 import { FaCamera } from "react-icons/fa";
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { useCallback, useEffect, useState } from "react";
 import { useUpdateProfilePictureMutation } from "@/slices/UsersApiSlice";
-import { reset } from "@/slices/cartSlice";
+
 
 const ProfileImage = () => {
   const { userInfo } = useSelector(state => state.auth);
@@ -127,7 +127,7 @@ const ProfileTabs = () => {
         ))}
         <div onClick={handleLogOut} className="flex items-center p-3 group cursor-pointer gap-2 ">
           <RiLogoutCircleLine />
-          {isLoading && "Loading..."} <p className="text-gray-500  group-hover:underline text-sm">Logout </p>
+          <p className="text-gray-500  group-hover:underline text-sm">Logout </p>
         </div>
       </div>
     </div>

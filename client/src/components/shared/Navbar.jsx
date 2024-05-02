@@ -2,9 +2,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import logo from "@/assets/logol3chir2.jpg"
 import admin from "@/assets/admin.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FiMenu } from "react-icons/fi";
-import { FaPhone, FaRegHeart, FaShoppingCart, FaUser, FaSearch, FaCheck } from 'react-icons/fa'
+import { FaPhone, FaRegHeart, FaShoppingCart, FaUser, FaSearch } from 'react-icons/fa'
 import { Button } from "../ui/button"
 import { useState } from "react";
 
@@ -53,10 +53,11 @@ const Navbar = () => {
 
 
   ]
+  const navigate = useNavigate()
   const [open,setOpen] = useState(false)
   
  
-  //console.log(//cartItems.reduce((acc,item)=> acc + item.quantity,0), "qty")
+ 
   
   return (
     <header className="flex   shadow-lg w-full  h-[80px] z-[99]  bg-white ">
@@ -95,7 +96,15 @@ const Navbar = () => {
                 
           </div>
            <div className="lg:hidden flex items-center gap-4">
-           <FaSearch className="font-bold cursor-pointer" color='gray' size={25} />
+           {/* <FaSearch className="font-bold cursor-pointer" color='gray' size={25} /> */}
+           <FaRegHeart onClick={()=> {
+              if(!userInfo) {
+                  setOpen(true)
+                  return
+              }else {
+                 navigate('/browse_wishlist-items') 
+              }
+           }}  size={28} />
            <Link to="/cart" className="relative">
              <FaShoppingCart className="font-bold cursor-pointer" color='black' size={28} />
              <div className="w-[24px] h-[24px] text-white flex items-center justify-center  rounded-full bg-[#00afaa] absolute top-[-12px] right-[-12px] ">
@@ -104,8 +113,8 @@ const Navbar = () => {
                   </p>
              </div>
            </Link>
-          
-           <FiMenu className="font-bold lg:hidden cursor-pointer" color='black' size={25} />
+          {userInfo ? <Link to="/profile"><img className="w-[28px] h-[28px] rounded-full object-cover " src={userInfo?.picture || "https://github.com/shadcn.png"} alt={userInfo?.username} /> </Link> : <FaUser onClick={()=> setOpen(true)}  size={28} />}
+           {/* <FiMenu className="font-bold lg:hidden cursor-pointer" color='black' size={25} /> */}
              
              
            </div>

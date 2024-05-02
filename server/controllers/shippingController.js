@@ -1,3 +1,4 @@
+
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Shipping from "../models/shippingModel.js";
 import Testimonials from "../models/testemoniolModel.js";
@@ -91,9 +92,16 @@ export const addTestimoniolReview = asyncHandler (async(req,res)=> {
 })
 
 export const getTestimoniols = asyncHandler (async(req,res)=> {
-    
+    try {
         const testimonials = await Testimonials.find({})
         .populate("user")
         res.status(200).json(testimonials)
+    } catch (error) {
+        console.log(error)
+        res.status(500)
+        throw new Error('Internal server error',error)
+      
+    }
+        
         
 })

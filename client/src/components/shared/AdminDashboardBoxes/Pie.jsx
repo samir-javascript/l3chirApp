@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useGetStatesQuery } from "@/slices/ProductsApiSlice"
 import { ResponsivePie } from "@nivo/pie"
+import LoadingState from "../Loader"
 const Pie = ({isDashboard }) => { 
     const {data, isLoading, isError} = useGetStatesQuery()
     if(isError) return "Error"
-    if(isLoading) return "Loading..."
+    if(isLoading) return <LoadingState />
    
     const formattedData = Object.entries(data.salesByCategory).map(([category,sales])=> ({
          id: category,

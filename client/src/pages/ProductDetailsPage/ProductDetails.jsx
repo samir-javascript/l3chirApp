@@ -3,31 +3,69 @@
  /* eslint-disable react/no-unescaped-entities */
  import Rating from "@/components/shared/Rating";
  import { useEffect, useState } from "react";
- import { Image } from "react-bootstrap"
+ import { Col, Form, Image, ListGroup, Row } from "react-bootstrap"
  import { FaHeart, FaMinus, FaPlus, FaRegHeart, FaShippingFast } from "react-icons/fa"
- import { Link, useParams } from "react-router-dom"
+ import { Link, useLocation, useParams } from "react-router-dom"
+ import loader from "@/assets/loader.gif"
   import  {MdOutlineShoppingCart} from 'react-icons/md'
-import { useGetProductByIdQuery } from "@/slices/ProductsApiSlice";
+ 
+import { useGetProductByIdQuery , useAddProductReviewMutation, useGetRecommendedProductsQuery} from "@/slices/ProductsApiSlice";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "@/slices/cartSlice";
+import {  useGetCollectionsQuery, useToogleWishlistProductMutation } from "@/slices/UsersApiSlice"
 import { toast } from "@/components/ui/use-toast";
+import LoadingState from "@/components/shared/Loader";
+import { Alert, AlertTitle } from "@/components/ui/alert";
+import Card from "@/components/cards/Card";
+import AuthModel from "@/components/models/AuthModel";
   
  const ProductDetails = () => {
  
   const {id} = useParams()
+  const {userInfo} = useSelector(state => state.auth)
   const [selectedImage,setSelectedImage] = useState("")
+  const [comment,setComment] = useState('')
+  const [rating,setRating] = useState(null)
   const [thumbnailImages,setThumbnailImages] = useState([])
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch()
   const [extras, setExtras] = useState([]);
-  const {data:product, isLoading,isErrror} = useGetProductByIdQuery(id)
+  const {data:product, isLoading,isErrror,refetch} = useGetProductByIdQuery(id)
   const [sizeState,setSizeState] = useState(product?.prices[0]?.size || 'small')
   const [price,setPrice] = useState(product?.type === "food" ?  product?.prices[0].price :  product?.price)
-   
+    const [toggleWishlist] = useToogleWishlistProductMutation()
    const [showFullDescription, setShowFullDescription] = useState(false);
-   const pro = false;
-   // 
+   const [addReview, {isLoading:adding}] = useAddProductReviewMutation()
+   const { data:recommendedProducts, isLoading:fetching} = useGetRecommendedProductsQuery(id)
+   const { search } = useLocation()
+   const [open,setOpen] = useState(false)
+   const searchParams = new URLSearchParams(search)
+   const page = parseInt(searchParams.get("page") || 1)
+   const {data, isLoading:loading,refetch:rf} = useGetCollectionsQuery({pageNumber: page})
+   const handleToggleWishlist = async()=> {
+    if(!userInfo) {
+        setOpen(true)
+        return
+    }
+    try {
+      const res = await toggleWishlist({
+       productId: product && product?._id,
+       userId: userInfo._id
+      })
+      if(res.error) {
+        toast({
+          title:"Failed to complete this action!",
+          variant:"destructive"
+        })
+        return;
+      }
+      rf()
+      // toast here
+    } catch (error) {
+      console.log(error)
+    }
+  }
    useEffect(() => {
     // Check if product and product.images are available
     if (product && product.images && product.images.length > 0) {
@@ -36,7 +74,8 @@ import { toast } from "@/components/ui/use-toast";
       setSelectedImage(product.images[0]);
     }
   }, [product]);
-  console.log(product, "product")
+  // this is wrong down below,
+
   const handleThumbnailClick = (thumbnail) => {
     setSelectedImage(thumbnail);
   };
@@ -110,8 +149,42 @@ import { toast } from "@/components/ui/use-toast";
       
      })
  }
-   if(isLoading) return "Loading..."
-   if(isErrror) return "Error"
+
+  const handleAddProductReview = async(e)=> {
+    e.preventDefault()
+     try {
+        const res = await addReview({
+          productId: product._id,
+          comment,
+          userId: userInfo?._id,
+          username: userInfo?.username,
+          rating
+        })
+        if(res.error) {
+          toast({
+            title: res.error.data.message || "Failed to add review",
+            variant:"destructive"
+          })
+          return
+        }
+        refetch()
+        setComment('')
+        setRating("")
+        toast({
+          title: "your review has been added"
+        })
+     } catch (error) {
+        console.log(error)
+     }
+  }
+   if(isLoading || loading) return <LoadingState />
+   if(isErrror) return <Alert className="bg-[#FF9999] max-w-[600px]  mb-5 mx-auto text-white  rounded-[4px] ">
+  
+                    
+   <AlertTitle className="leading-[140%] text-xl ">something went wrong { " "} <Button className='border-none p-0  bg-transparent outline-none underline text-black' onClick={()=> window.location.reload()} type="button">Refresh the page</Button> </AlertTitle>
+   
+ </Alert>
+  const pro = data?.wishlist?.productIds?.find((item)=> item === product._id);
    return (
      <div className="flex flex-col py-5 w-full relative ">
           <Link className=" max-w-[1400px] sm:mx-[50px] mb-5 mx-[15px] " to='/'>
@@ -152,7 +225,7 @@ import { toast } from "@/components/ui/use-toast";
              >
               {product.name}
              </h2>
-             <div  className='sm:w-[50px] sm:h-[50px] rounded-full flex items-center justify-center sm:bg-[#ddd] '>
+             <div onClick={handleToggleWishlist} className='sm:w-[50px] sm:h-[50px] rounded-full flex items-center justify-center sm:bg-[#ddd] '>
                {pro ? <FaHeart size={35} color='red' className=' cursor-pointer' /> : 
                <FaRegHeart size={35} color='#0b4d54' className=' cursor-pointer' />
                } 
@@ -259,7 +332,99 @@ import { toast } from "@/components/ui/use-toast";
            </div>
           </div>
           </div>
-       
+
+          <div className="w-full ">
+          <div  className="max-w-[1500px] mt-20 mx-auto">
+        <h2 className="my-10 sm:mx-14 max-sm:mx-[1.5rem] text-center text-black  font-bold text-[30px]  ">You may also like</h2>
+        <div className="flex  mb-10  items-start justify-center flex-wrap gap-3">
+          {data && recommendedProducts?.slice(0,4).map((item)=> (
+             <Card refetch={refetch} key={item._id}  product={item} />
+          ))}
+          
+     </div>
+     </div>
+     
+      <Row className='review m-3 max-w-[1400px] mx-auto'>
+          <Col className="lg:mx-6 mx-2 " md={7} >
+            {product?.reviews.length === 0 ? (
+ <h2 className="mt-5 mb-4  font-bold text-black text-[24px] "> Reviews</h2>
+            ): (
+              <h2 className="mt-5 font-bold text-black text-[24px] mb-4"> 
+              {product?.reviews.length > 1 ? "Reviews" :  "Review" } ({product?.reviews.length}) </h2>
+            )}
+             
+             
+              <ListGroup variant='flush'>
+                  {product?.reviews.map(item => (
+                     <ListGroup.Item key={item._id}>
+                         <div className="flex lg:items-center items-start lg:flex-row flex-col">
+                          <div className="flex items-center gap-x-4">
+                              <div className=" w-[40px] h-[40px] rounded-full flex items-center justify-center ">
+                                   <img alt={item.user.name} src={item.user.picture} className=" w-full h-full rounded-full "/>
+                              </div>
+                              <div className="flex flex-col">
+                                    <Rating value={item.rating} />
+                                    <p className="font-normal text-base text-[#4c4c4c] ">{item.name} </p>
+                              </div>
+                          </div>
+                              <div className="bg-gray-100 p-2 lg:mt-0 mt-2.5 lg:ml-10 rounded-xl lg:flex-1 ">
+                                  <p className="text-gray-500 text-sm font-normal">{item.comment} </p>
+                                  <p className="text-sm text-gray-400 font-normal pt-1.5">{ item.createdAt.substring(0,10)} </p>
+                              </div>
+                         </div>
+                     </ListGroup.Item>
+                  ))}
+                  <ListGroup.Item>
+                     {userInfo ? (
+                      <>
+                      <h3 className="mt-5 lg:text-[22px] text-[20px] 
+                       lg:whitespace-nowrap mb-3 text-black font-semibold ">Veuillez laisser votre commentaire pour ce produit.</h3>
+                       <Form onSubmit={handleAddProductReview}>
+                          <Form.Group controlId='rating' className='my-2'>
+                             <Form.Label className="font-bold text-[22px] font-Roboto text-[#4c4c4c]">Rating</Form.Label>
+                             <Form.Control  required as='select' value={rating}
+                              onChange={(e)=> setRating(Number(e.target.value))} >
+                                <option value="">select...</option>
+                                <option value={1}>1 - poor</option>
+                                <option value={2}>2 - fair</option>
+                                <option value={3}>3 - good</option>
+                                <option value={4}>4 - very good</option>
+                                <option value={5}>5 - excellent</option>
+                             </Form.Control>
+                          </Form.Group>
+                          <Form.Group controlId='comment' className='my-2 mt-4 '>
+                             <Form.Label className="font-bold text-[22px] text-[#080606] ">Comment</Form.Label>
+                             <Form.Control required as='textarea' value={comment} rows="4" className="border border-blue-500"
+                             placeholder='Écrire un avis client sur l3chir'
+                              onChange={(e)=> setComment(e.target.value)} >
+                               
+                             </Form.Control>
+                          </Form.Group>
+                          <Button
+            disabled={adding}
+            type="submit"
+            className="bg-[#00afaa]  mt-2 mx-auto text-white font-bold w-[250px] h-[40px] rounded-[20px] "
+          >
+            {adding ?  <img src={loader} className="w-[35px] h-[35px] " alt="loading..." /> : 'valider'}
+          </Button>
+                       </Form>
+                       </>
+                     ) : (
+                            
+                              <Alert className="bg-green-500 max-w-[600px] mt-2 mb-5 mx-auto text-white  rounded-[4px] ">
+  
+                              <AlertTitle className="leading-[140%] text-base  ">Veuillez <span onClick={()=> {
+                                  setOpen(true)
+                              }} className="underline cursor-pointer">vous connectez</span> pour rédiger un avis. </AlertTitle>
+                              
+                            </Alert>
+                     )}
+                  </ListGroup.Item>
+              </ListGroup>
+          </Col>
+       </Row>
+       </div>
+<AuthModel open={open} setOpen={setOpen} />
      </div>
    )
  }

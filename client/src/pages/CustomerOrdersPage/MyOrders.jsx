@@ -7,13 +7,15 @@ import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Image } from "react-bootstrap";
 import ProfileMobileTabs from "@/components/shared/ProfileMobileTabs";
+
+import ProfileSkeleton from "@/components/Skeletons/ProfileSkeleton";
 const MyOrders = () => {
     const { userInfo } = useSelector(state => state.auth)
     const id = userInfo._id
     const {data:myOrders, isLoading,isError} = useGetMyOrdersQuery(id)
     if(isError) return 'Error'
-    if(isLoading) return "Loading..."
-    console.log(myOrders, "so")
+    if(isLoading) return <ProfileSkeleton />
+   
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
     <div className="max-w-[1400px] mx-auto">

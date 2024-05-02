@@ -10,11 +10,12 @@ import { Alert, AlertTitle } from "@/components/ui/alert"
 
   
 import { Accordion, Image } from "react-bootstrap"
+import LoadingState from "@/components/shared/Loader"
 const Payment = () => {
     const { id } = useParams()
     const {userInfo} = useSelector(state  => state.auth)
     const  { data, isLoading, isError} = useGetOrderByIdQuery(id)
-    if(isLoading) return "Loading..."
+    if(isLoading) return <LoadingState />
     if(isError) return 'Error happened'
     console.log(data,"order")
   return (
