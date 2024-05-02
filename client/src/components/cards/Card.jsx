@@ -8,8 +8,7 @@ import { FaEye , FaHeart, FaRegHeart} from 'react-icons/fa'
 import {   useGetCollectionsQuery, useToogleWishlistProductMutation} from "@/slices/UsersApiSlice"
 import { toast } from "../ui/use-toast"
 import { useSelector } from "react-redux"
-import { useGetCurrentUserQuery } from "@/slices/UsersApiSlice"
-import LoadingState from "../shared/Loader"
+
 import AuthModel from "../models/AuthModel"
 import { useState } from "react"
 const Card = ({product}) => {
@@ -40,6 +39,9 @@ const [open,setOpen] = useState(false)
         return;
       }
       refetch()
+      toast({
+        title: "item has been added to your favorites"
+      })
       // toast here
     } catch (error) {
       console.log(error)

@@ -19,6 +19,7 @@ import LoadingState from "@/components/shared/Loader";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import Card from "@/components/cards/Card";
 import AuthModel from "@/components/models/AuthModel";
+import ProductDetailsSkeleton from "@/components/Skeletons/ProductDetailsSkeleton";
   
  const ProductDetails = () => {
  
@@ -61,7 +62,9 @@ import AuthModel from "@/components/models/AuthModel";
         return;
       }
       rf()
-      // toast here
+      toast({
+        title: "item has been added to your favorites"
+      })
     } catch (error) {
       console.log(error)
     }
@@ -177,7 +180,7 @@ import AuthModel from "@/components/models/AuthModel";
         console.log(error)
      }
   }
-   if(isLoading || loading) return <LoadingState />
+   if(isLoading || loading) return <ProductDetailsSkeleton />
    if(isErrror) return <Alert className="bg-[#FF9999] max-w-[600px]  mb-5 mx-auto text-white  rounded-[4px] ">
   
                     
@@ -214,6 +217,9 @@ import AuthModel from "@/components/models/AuthModel";
               
              </div>
                 </div>
+
+
+
                 <div className="flex-1 flex flex-col mx-[30px] ">
           
              <div className="flex items-center gap-10">
