@@ -6,9 +6,9 @@ const ProductDetailsSkeleton = () => {
   return (
     <div className="w-full h-full py-20 ">
       <div className="flex items-center lg:items-start lg:flex-row lg:justify-start justify-center flex-col gap-12 pb-4 max-w-[1200px] mx-auto">
-        <div className="sm:mx-[30px] mx-[10px]">
+        <div className="sm:mx-[30px] mx-auto">
           <Skeleton
-            className="w-full max-sm:w-[95%] h-[500px] max-h-[100%] object-cover lg:w-[450px] flex-1 rounded-[20px] bg-gray-100 items-center justify-center"
+            className="w-full mx-auto max-sm:w-[95%] h-[500px] max-h-[100%] object-cover lg:w-[450px] flex-1 rounded-[20px] bg-gray-100 items-center justify-center"
           />
           <div className="max-w-full flex items-center justify-center mt-4 space-x-4">
             {[0, 1, 2].map((_, index) => (
