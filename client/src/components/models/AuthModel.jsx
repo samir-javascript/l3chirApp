@@ -248,11 +248,11 @@ return (
             </div>
            
             
-            <Button disabled={reseting} type="submit" className="bg-[#0aafaa] md:block hidden mt-7 w-[90%]  transition-all duration-200
+            <Button disabled={reseting} type="submit" className="bg-[#0aafaa] md:flex items-center justify-center hidden mt-7 w-[90%]  transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] " >
               {reseting ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "SEND E-MAIL TO RESET YOUR PASSWORD"} 
              </Button>
-             <Button disabled={reseting} type="submit" className="bg-[#0aafaa] md:hidden block mt-7 w-[90%]  transition-all duration-200
+             <Button disabled={reseting} type="submit" className="bg-[#0aafaa] md:hidden flex items-center justify-center mt-7 w-[90%]  transition-all duration-200
              text-white rounded-[5px] hover:bg-[#174d4b] " >
               {reseting ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "SEND"} 
              </Button>
