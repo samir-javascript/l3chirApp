@@ -150,9 +150,10 @@ return (
   <DialogContent className="bg-white max-lg:w-[95%] !rounded-[10px] z-[9999] "> 
   <Tabs defaultValue="account" className="lg:w-[400px] w-full !rounded-[10px] ">
       <TabsList className="grid w-full grid-cols-2 gap-3  ">
-        <TabsTrigger className="py-2 data-[state=active]:bg-[#00afaa] h-[40px] data-[state=active]:text-white data-[state=active]:rounded-md " value="account">Already have  an account</TabsTrigger>
-       
-        <TabsTrigger className="py-2 data-[state=active]:bg-[#00afaa] h-[40px] data-[state=active]:text-white data-[state=active]:rounded-md" value="password">New client  (Create account)</TabsTrigger>
+        <TabsTrigger className="py-2 sm:block hidden max-sm:text-sm  data-[state=active]:bg-[#00afaa] h-[40px] data-[state=active]:text-white data-[state=active]:rounded-md " value="account">Already have  an account</TabsTrigger>
+        <TabsTrigger className="py-2 sm:hidden px-1 block max-sm:text-sm  data-[state=active]:bg-[#00afaa] h-[40px] data-[state=active]:text-white data-[state=active]:rounded-md " value="account"> have  an account ?</TabsTrigger>
+        <TabsTrigger className="py-2 max-sm:text-sm data-[state=active]:bg-[#00afaa] h-[40px] data-[state=active]:text-white data-[state=active]:rounded-md sm:block hidden" value="password">New client  (Create account)</TabsTrigger>
+        <TabsTrigger className="py-2 px-1 max-sm:text-sm data-[state=active]:bg-[#00afaa] h-[40px] data-[state=active]:text-white data-[state=active]:rounded-md sm:hidden block" value="password">New (Create account)</TabsTrigger>
       </TabsList>
       <TabsContent value="account">
         <Card className="!border-none">

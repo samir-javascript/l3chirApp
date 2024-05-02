@@ -63,7 +63,7 @@ const [open,setOpen] = useState(false)
    if(loading) return <SkeletonCard />
     const pro = data?.wishlist?.productIds?.find((item)=> item === product._id);
   return (
-    <div className="w-[210px]  max-sm:w-[182px] min-h-auto h-[380px]   rounded-[15px]  flex flex-col shadow-sm border border-[#f5f5f5] ">
+    <div className="w-[210px]  max-sm:w-[174px] min-h-auto h-[380px]   rounded-[15px]  flex flex-col shadow-sm border border-[#f5f5f5] ">
          <div className=" bg-[#f5f5f5]  relative flex items-center 
       justify-center w-full h-[210px] rounded-tl-[15px] rounded-tr-[15px] ">
              <Image fluid className="w-auto aspect-auto h-full  rounded-tl-[15px]

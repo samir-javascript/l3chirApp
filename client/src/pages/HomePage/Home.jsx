@@ -27,7 +27,7 @@ const Home = () => {
       
         <div  className="max-w-[1500px] mt-20 mx-auto">
         <h2 className="my-10 sm:mx-14 max-sm:mx-[1.5rem]  font-bold text-[30px]  ">TODAY's SPECIALS</h2>
-        <div className="flex  mb-10  items-start justify-center flex-wrap gap-3">
+        <div className="flex  mb-10  items-start justify-center flex-wrap gap-3 max-sm:gap-1">
           {data && data?.products?.slice(0,12).map((item)=> (
              <Card refetch={refetch} key={item._id}  product={item} />
           ))}
