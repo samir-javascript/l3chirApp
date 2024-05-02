@@ -108,17 +108,17 @@ export const sendResetMail = async(email,subject,text)=> {
 }
 export const sendOrderConfirmationEmail = async(email,subject,cartItems)=> {
     const htmlOrderTemplate = `
-    <div style="max-width: 700px; margin: auto; background: #f5f5f5;  align-items: center; justify-content: center; border-radius: 5px; margin-top: 1rem;  padding: 16px;">
+    <div style="max-width: 500px; margin: auto; background: #f5f5f5;  border-radius: 5px; margin-top: 1rem;  padding: 16px;">
     <img style="width: 100px; height: 100px; object-fit: contain;" src="https://l3chirapp.onrender.com/assets/logol3chir2-Bfmvtyz4.jpg" alt="l3chir" />
     <h2 style="font-weight: bold; text-decoration: underline; font-size: 30px; color: #000; text-transform: capitalize; margin-top: 20px;">Order confirmation</h2>
     <p style="color: #333; font-weight: 500; font-size: 1rem; line-height: 1.5rem; margin-top: 20px;">We got your order (thank you). This is your receipt and confirmation that everything is going according to plan. So just sit back and relax; your order is on its way to you.</p>
-    <div style=" margin: 0px 20px; flex: 1; margin-top: 40px;">
+    <div style="  flex: 1; margin-top: 40px;">
         ${cartItems.map(item => `
             <div style="border: 1px solid #999; background-color: #f5f5f5; border-radius: 10px; padding: 10px; margin-bottom: 20px;" key="${item._id}">
-                <div style="display: flex; gap: 10px; align-items: start;">
+                <div style="display: flex; gap: 10px; align-items: start; justify-content:space-between;  ">
                     <div style="background-color: white; width: 100px; height: 100px;  border-radius: 10px; display: flex; justify-content: center; align-items: center;">
                         <img src="${item.images[0]}" alt="${item.name}" style="object-fit: cover; border-radius: 10px; width: 100%; height: 100%;" />
-                    </div>
+                    </div> 
                     <div style="display: flex; flex-direction: column; flex: 1 ; margin-left: "5px"; ">
                         <div>
                             <p style="color: #121212; font-weight: bold; text-align: left; font-size: 14px;">${item.name}</p>
