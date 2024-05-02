@@ -106,3 +106,74 @@ export const sendResetMail = async(email,subject,text)=> {
 
     }
 }
+export const sendOrderConfirmationEmail = async(email,subject,cartItems)=> {
+    const htmlOrderTemplate = `
+    <div style="max-width: 700px; margin: auto; background: #f5f5f5;  align-items: center; justify-content: center; border-radius: 5px; margin-top: 1rem;  padding: 16px;">
+    <img style="width: 100px; height: 100px; object-fit: contain;" src="https://l3chirapp.onrender.com/assets/logol3chir2-Bfmvtyz4.jpg" alt="l3chir" />
+    <h2 style="font-weight: bold; text-decoration: underline; font-size: 30px; color: #000; text-transform: capitalize; margin-top: 20px;">Order confirmation</h2>
+    <p style="color: #333; font-weight: 500; font-size: 1rem; line-height: 1.5rem; margin-top: 20px;">We got your order (thank you). This is your receipt and confirmation that everything is going according to plan. So just sit back and relax; your order is on its way to you.</p>
+    <div style=" margin: 0px 20px; flex: 1; margin-top: 40px;">
+        ${cartItems.map(item => `
+            <div style="border: 1px solid #999; background-color: #f5f5f5; border-radius: 10px; padding: 10px; margin-bottom: 20px;" key="${item._id}">
+                <div style="display: flex; gap: 10px; align-items: start;">
+                    <div style="background-color: white; width: 100px; height: 100px;  border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                        <img src="${item.images[0]}" alt="${item.name}" style="object-fit: cover; border-radius: 10px; width: 100%; height: 100%;" />
+                    </div>
+                    <div style="display: flex; flex-direction: column; flex: 1 ; margin-left: "5px"; ">
+                        <div>
+                            <p style="color: #121212; font-weight: bold; text-align: left; font-size: 14px;">${item.name}</p>
+                            ${item.type === "food" ? `<p style="color: #808080; font-size: 13px;">size: <span style="color: #0aafaa; font-weight: bold; text-decoration: underline;">${item.sizeState}</span></p>` : ''}
+                            <p style="color: #808080; font-size: 13px;">Qty: ${item.quantity}</p>
+                        </div>
+                        <div>
+                            <p style="color: #121212; font-weight: bold; font-size: 16px; margin-top: 10px;">Dh${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('')}
+        <div style="background-color: #f5f5f5; padding: 10px; border-radius: 10px;">
+            <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; display: flex; justify-content: space-between;">
+                <p style="font-weight: bold; color: #333; font-size: 16px;">Sous-total:</p>
+                <p style="font-weight: bold; color: black; font-size: 16px;">Dh${cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}</p>
+            </div>
+            <div style="border-bottom: 1px solid #ccc; padding-top: 10px; padding-bottom: 10px; display: flex; justify-content: space-between;">
+                <p style="font-weight: bold; color: #333; font-size: 16px;">Total:</p>
+                <p style="font-weight: bold; color: black; font-size: 16px;">Dh${cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}</p>
+            </div>
+            <p style="font-weight: bold; color: #121212; font-size: 16px; margin-top: 10px;">Paiement à la livraison.</p>
+            <div style="background-color: #4CAF50; padding: 15px; color: white; margin-top: 10px; border-radius: 4px;">
+                <p style="font-size: 15px; margin-bottom: 0;">Nous livrons actuellement sur Meknès exclusivement et Gratuitement, merci de votre compréhension.</p>
+            </div>
+        </div>
+    </div>
+</div>
+`;
+// >
+
+
+    try {
+        const transporter = nodemailer.createTransport({
+            port:587,
+            host: 'smtp.gmail.com',
+            secure: false,
+            service: "gmail",
+            auth: {
+                user: "soufianehmamou92@gmail.com",
+                pass: "hmzivlerbulgzsyu",  
+            },
+        })
+        await transporter.sendMail({
+            from: 'soufianehmamou92@gmail.com',
+            to: email,
+            subject: subject,
+            text: null,
+            html: htmlOrderTemplate
+        })
+        console.log(`email for order confirmation was sent successfuly to ${email}`)
+    } catch (error) {
+        console.error(error)
+        console.log('failed to send email reset')
+
+    }
+}

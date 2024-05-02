@@ -1,27 +1,34 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Order from "../models/orderModel.js";
 //import Shipping from "../models/shippingModel.js";
-
+import { sendOrderConfirmationEmail} from "../utils/nodemailer.js"
 // send email to order holder after the order request is done
 export const addNewOrder = asyncHandler (async(req,res)=> {
-  
-        const { totalPrice,  status, shippingAddress,  orderItems, } = req.body;
+  try {
+    const { totalPrice,  status, shippingAddress,  orderItems, } = req.body;
       
-        const order = await Order.create({
-            user: req.user._id,
-            status,
-            orderItems: orderItems.map((order)=> ({
-                ...order,
-                _id: undefined,
-                product: order._id
-            })),
-            shippingAddress,
-            totalPrice
-        })
-        if(!order)  {
-            throw new Error('Failed to creare new order')
-        }
-        res.status(201).json(order)
+    const order = await Order.create({
+        user: req.user._id,
+        status,
+        orderItems: orderItems.map((order)=> ({
+            ...order,
+            _id: undefined,
+            product: order._id
+        })),
+        shippingAddress,
+        totalPrice
+    })
+    if(!order)  {
+        throw new Error('Failed to creare new order')
+    }
+    await sendOrderConfirmationEmail(req.user.email, "l3chir Order confirmation" ,orderItems)
+    res.status(201).json(order)
+  } catch (error) {
+    console.log(error)
+    res.status(500)
+    throw new Error('Internal server errpr',error)
+  }
+       
      
 })
 

@@ -12,6 +12,7 @@ import Specialmenu from "@/components/shared/Specialmenu"
 import { useGetProductsQuery } from "@/slices/ProductsApiSlice"
 import { useLocation } from "react-router-dom"
 
+
 const Home = () => {
     const {search} = useLocation()
     const searchParams = new URLSearchParams(search)
@@ -44,6 +45,7 @@ const Home = () => {
     
        <Specialmenu />
        <SocialProof />
+       
     </div>
   )
 }

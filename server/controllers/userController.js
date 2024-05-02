@@ -51,41 +51,9 @@ export const changePassword = asyncHandler (async(req,res)=> {
    
 })
 
-export const addToWishlist = asyncHandler (async(req,res)=> {
-    const { productId } = req.body;
-   
-      const user = await User.findById(req.user._id)
-      if(!user) {
-         res.status(404)
-         throw new Error('User not found')
-      }
-      const isAlreadyWishListed = user.saved.includes(productId);
-      if(isAlreadyWishListed) {
-         await User.findByIdAndUpdate(user._id, {  $pull:{saved: productId}})
-         res.status(200).json({message: "product has been removed from wishlist"})
-      }else {
-         await User.findByIdAndUpdate(user._id, {  $addToSet:{saved: productId}})
-         res.status(200).json({message: "product has been added to wishlist"})
-      }
-     
-   
-})
 
-export const getWishlistProducts = asyncHandler( async(req,res)=> {
-  
-      const user = await User.findById(req.user._id)
-      const page = Number(req.query.pageNumber)|| 1;
-      const pageSize = 10;
-      const skipAmount = pageSize * (page - 1)
-      const total = await Product.countDocuments({_id: {$in: user.saved}})
-     
-      const wishlistProducts = await Product.find({_id: {$in: user.saved}})
-      .limit(pageSize)
-      .skip(skipAmount)
-      res.status(200).json({wishlistProducts,page,pages:Math.ceil(total / pageSize)})
-    
-   
-})
+
+
 
 
 

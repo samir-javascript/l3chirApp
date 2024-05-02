@@ -2,7 +2,7 @@ import badge1 from '@/assets/badge1.png'
 import badge2 from '@/assets/badge2.png'
 import badge3 from '@/assets/badge3.png'
 import badge4 from '@/assets/badge4.png'
-import payment from '@/assets/paiement_x2_1.webp'
+import deliveryMan from "@/assets/cd.png"
 
 const AccordionPart = () => {
   return (
@@ -42,9 +42,9 @@ const AccordionPart = () => {
                             </div>
                       </div>
                   </li>
-                  <li className='flex lg:flex-col flex-wrap lg:items-start items-center lg:space-x-0 space-x-12 '>
+                  <li className='flex flex-col    '>
                   <h2 className='font-semibold text-[16px] text-slate-50 mb-3 capitalize '>Modes de paiement</h2>
-                  <img className='w-[320px] object-contain ' src={payment} alt="" />
+                  <img className='w-[150px] h-auto object-contain mt-[-20px] ' src={deliveryMan} alt="" />
                   </li>
                   </div>
                   

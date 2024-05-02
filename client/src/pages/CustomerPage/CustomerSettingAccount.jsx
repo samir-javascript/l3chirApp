@@ -54,6 +54,9 @@ const CustomerSettingAccount = () => {
             })
             return
          }
+         setNewPassword('')
+         setConfirmNewPassword('')
+         setUserName("")
          dispatch(setCredentials({...res.data}))
          toast({
             title:"profile updated successfuly"

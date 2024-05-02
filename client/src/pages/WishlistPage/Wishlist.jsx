@@ -39,21 +39,21 @@ const Wishlist = () => {
                                    <span className="text-gray-500 text-sm capitalize">/</span>
                                    <Link className="text-gray-500 text-sm capitalize hover:underline" to="/browse_wishlist-items">My favorite items</Link>
                              </div>
-                             <h2 className="text-black text-xl font-semibold ">My favorites <span className="text-gray-500 text-sm font-normal ">- {data.wishlist.totalProducts} items</span></h2>
+                             <h2 className="text-black text-xl font-semibold ">My favorites <span className="text-gray-500 text-sm font-normal ">- {data?.wishlist?.totalProducts || 0} items</span></h2>
                              <p className="text-gray-500 text-sm mt-2">These are your Favourite items. You can order them right now!</p>
                         </div>
                         {/* <h2 className="my-10 sm:mx-14 max-sm:mx-[1.5rem]  font-bold text-[30px]  ">TODAY's SPECIALS</h2> */}
           <div className="flex  mb-10  items-start lg:justify-start justify-center mt-4 flex-wrap gap-3">
-            {data ? data?.wishlist?.products?.map((item)=> {
+            {data?.wishlist?.products?.length> 0 ? data?.wishlist?.products?.map((item)=> {
                  
                   return (
                         <Card  key={item._id}  product={item} />
                   )
             }): (
-                  <Alert className="bg-[#FF9999] max-w-[1000px] mx-auto text-white mt-2 rounded-[4px] ">
+                  <Alert className="bg-[#FF9999] max-sm:w-[95%] max-w-[1000px] mx-auto text-white mt-2 rounded-[4px] ">
   
                     
-                  <AlertTitle className="leading-[140%] capitalize text-xl ">You have no wishlist Items in your List.</AlertTitle>
+                  <AlertTitle className="leading-[140%] capitalize max-sm:text-sm text-xl ">You have no wishlist Items in your List.</AlertTitle>
                   
                 </Alert>
             )}

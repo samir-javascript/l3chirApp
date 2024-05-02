@@ -47,10 +47,7 @@ export const getShippingAddress = asyncHandler ( async(req,res)=> {
     
         const shipping = await Shipping.findOne({user: req.user._id})
         .populate({ path: "user", select: "-password"})
-        if(!shipping) {
-            res.status(404)
-            throw new Error('Shipping address not found')
-        }
+       
         res.status(200).json(shipping)
    
 } 

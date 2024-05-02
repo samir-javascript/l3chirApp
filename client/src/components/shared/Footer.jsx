@@ -5,7 +5,7 @@ import badge1 from '@/assets/badge1.png'
 import badge2 from '@/assets/badge2.png'
 import badge3 from '@/assets/badge3.png'
 import badge4 from '@/assets/badge4.png'
-import payment from '@/assets/paiement_x2_1.webp'
+
 import deliveryMan from "@/assets/cd.png"
 // #1c6c76
 const Footer = () => {

@@ -229,10 +229,10 @@ return (
   </Dialog>
   <Dialog open={openModel} onOpenChange={()=> setOpenModel(false) } >
 
-  <DialogContent className="bg-white  !rounded-[10px] z-[9999] "> 
+  <DialogContent className="bg-white max-sm:p-2 max-lg:w-[95%] !rounded-[10px] z-[9999] "> 
  
-        <Card className="!border-none">
-          <CardHeader>
+        <Card className="!border-none  ">
+          <CardHeader> 
             <CardTitle className="text-center text-black font-bold text-[30px] mb-2 ">Password reset</CardTitle>
             <p className="mt-1 font-semibold text-[#111] leading-[1.7] text-sm ">Fill in the email address corresponding to your StarShinerS account below</p>
             

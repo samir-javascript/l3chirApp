@@ -35,7 +35,7 @@ function App() {
     <>
       <div className='w-full h-full flex flex-col'>
             
-            <main className='flex-1'>
+            <main className='flex-1 overflow-x-hidden '>
                  <Routes>
                   {/* admin routes */}
                  

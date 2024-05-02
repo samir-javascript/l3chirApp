@@ -88,7 +88,7 @@ export function SocialProof() {
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
-     <Button onClick={()=> setOpen(true)} className="w-full rounded-[10px] mx-auto flex items-center text-base font-medium h-[50px] text-white bg-[#00afaa] justify-center max-w-[400px] mt-5 " type="button">
+     <Button onClick={()=> setOpen(true)} className="w-full max-sm:w-[95%] rounded-[10px] mx-auto flex items-center text-base font-medium h-[50px] text-white bg-[#00afaa] justify-center max-w-[400px] mt-5 " type="button">
         Tell us about your experince with l'3chir
      </Button>
      <div>

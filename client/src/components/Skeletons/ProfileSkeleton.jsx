@@ -46,13 +46,13 @@ const ProfileSkeleton = () => {
     </div>
     <div className="flex-1 flex flex-col w-full gap-4 lg:ml-5">
             <div className="lg:border lg:bg-white lg:w-[80%] w-full h-[250px]  flex flex-col     p-3">
-                <Skeleton  className="w-full h-full bg-gray-100 "/>
+                <Skeleton  className="w-full animate-pulse h-full bg-gray-100 "/>
             </div>
             <div className="lg:border lg:bg-white w-full lg:w-[80%] h-[250px]  flex flex-col     p-3">
-                <Skeleton  className="w-full h-full bg-gray-100 "/>
+                <Skeleton  className="w-full h-full animate-pulse bg-gray-100 "/>
             </div>
             <div className="lg:border lg:bg-white  w-full lg:w-[80%] h-[250px]  flex flex-col     p-3">
-                <Skeleton  className="w-full h-full bg-gray-100 "/>
+                <Skeleton  className="w-full h-full animate-pulse bg-gray-100 "/>
             </div>
     </div>
     </div>
