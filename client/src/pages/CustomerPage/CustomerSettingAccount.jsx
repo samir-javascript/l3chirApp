@@ -11,6 +11,7 @@ import { useUpdateProfileMutation } from "@/slices/UsersApiSlice"
 import UploadProfile from "@/components/shared/UploadProfile"
 import { useSelector, useDispatch } from "react-redux"
 import { toast } from "@/components/ui/use-toast"
+import { Helmet } from "react-helmet-async"
 
 const CustomerSettingAccount = () => {
    const { userInfo } = useSelector(state => state.auth)
@@ -67,6 +68,10 @@ const CustomerSettingAccount = () => {
    }
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
+       <Helmet>
+        <title>My Account settings</title>
+      
+      </Helmet>
     <div className="max-w-[1400px] mx-auto">
        <div className="py-10 lg:px-5 flex lg:flex-row flex-col">
            

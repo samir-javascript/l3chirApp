@@ -4,6 +4,7 @@ import { useGetProductsByCategoryQuery } from "@/slices/ProductsApiSlice"
 import { categories } from "@/constants"
 import Card from "@/components/cards/Card"
 import LoadingState from "@/components/shared/Loader"
+import { Helmet } from "react-helmet-async"
 const Category = () => {
     const { search} = useLocation()
     const searchParams = new URLSearchParams(search)
@@ -17,12 +18,16 @@ const Category = () => {
 
   return (
     <div className="w-full h-full relative ">
+       <Helmet>
+        <title>l3chir | {categoryName}  </title>
+      
+      </Helmet>
       <div className="p-6 flex items-center gap-2">
             <Link className="text-[#00afaa] font-semibold text-base hover:underline " to="/">Accueil</Link> <span>&gt;</span> 
             <p className="font-normal text-gray-500 capitalize text-base ">{categoryName} </p>
       </div>
       <div className="w-full lg:h-[450px] h-[400px] ">
-      <img className="w-full h-full object-cover" src={currentCategory.imgBanner} alt={currentCategory.name} />
+      <img loading="lazy" className="w-full h-full object-cover" src={currentCategory.imgBanner} alt={currentCategory.name} />
       </div>
       <div  className="max-w-[1500px] mx-auto">
           <h2 className="my-10 sm:mx-14 max-sm:mx-[1.5rem]  font-bold text-[30px]  ">Best {categoryName}'s we got for you</h2>

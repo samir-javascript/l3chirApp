@@ -11,6 +11,7 @@ import { useDeleteShipping_addressMutation, useGetShipping_addressQuery } from "
 import { toast } from "@/components/ui/use-toast"
 import { clearShippingAddress } from "@/slices/cartSlice"
 import LoadingState from "@/components/shared/Loader"
+import { Helmet } from "react-helmet-async"
 const CustomerAddress = () => {
     
     const [open,setOpen] = useState('')
@@ -49,6 +50,10 @@ const CustomerAddress = () => {
    
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
+         <Helmet>
+        <title>adresse de livraison | facturation </title>
+      
+      </Helmet>
     <div className="max-w-[1400px] mx-auto">
        <div className="py-10 max-md:py-3 lg:px-5 flex lg:flex-row flex-col">
            

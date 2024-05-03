@@ -11,6 +11,7 @@ import { setCredentials } from "@/slices/usersSlice"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
 
 const SignUp = () => {
     const [registerPassword,setRegisterPassword] = useState('')
@@ -56,6 +57,10 @@ const SignUp = () => {
     }
   return (
     <div className="w-full h-full flex items-center justify-center py-10 relative bg-white">
+       <Helmet>
+        <title>Secure auth process on l3chir </title>
+      
+      </Helmet>
           <div className="max-w-[1400px] mx-auto ">
                 <div className="flex lg:items-center items-start lg:flex-row flex-col w-full gap-[2rem] lg:gap-[5rem] ">
                      <Link to="/">

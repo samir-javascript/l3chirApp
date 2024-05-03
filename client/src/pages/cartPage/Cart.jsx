@@ -4,6 +4,7 @@ import CartItem from "@/components/shared/CartItem"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { Helmet } from "react-helmet-async"
 import { FaShippingFast } from "react-icons/fa"
 import { useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
@@ -25,6 +26,10 @@ const Cart = () => {
     // Un montant total d'achat minimum de 30dh est requis pour passer à la caisse .
   return (
     <div className="w-full h-full pt-10 pb-5 relative">
+      <Helmet>
+        <title>Mon panier</title>
+      
+      </Helmet>
     {total <= 30 && cartItems.length > 0 && <Alert className="bg-[#FF9999] max-w-[850px] animate-pulse hover:animate-none focus:animate-none mb-5 mx-auto text-white mt-2 rounded-[4px] ">
   
                     

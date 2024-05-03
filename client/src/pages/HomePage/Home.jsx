@@ -11,6 +11,7 @@ import Specialmenu from "@/components/shared/Specialmenu"
 
 import { useGetProductsQuery } from "@/slices/ProductsApiSlice"
 import { useLocation } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
 
 
 const Home = () => {
@@ -22,6 +23,10 @@ const Home = () => {
   if(isLoading) return <CardSkeleton />
   return (
     <div>
+        <Helmet>
+        <title>l3chir   </title>
+      
+      </Helmet>
        <Hero />
        <CategoriesSlider />
        <About />

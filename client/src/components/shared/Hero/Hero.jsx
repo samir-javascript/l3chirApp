@@ -50,50 +50,31 @@ const Hero = () => {
                               <p className='mt-2 text-base leading-[1.7] text-[#232323] font-medium '>Indulge in Flavorful Delights! Order Now for Fresh & Fast Food Delivery Straight to Your Doorstep.</p>
                               <Button className="bg-[#00afaa] text-white rounded-[5px] mt-2 z-50 ">Order now</Button>
                         </div>
-                           <Image className='w-full h-full object-contain ' src={bannerGirl}  fluid />
+                           <Image fluid  loading="eager" className='w-full h-full object-contain ' src={bannerGirl}   />
                     </div>
                
                </>
             </Carousel.Item>
             <Carousel.Item>
                <Link to='/browse_categories?category=tacos'>
-                  <Image className='z-[-1] w-full md:h-[600px] h-[500px] !object-cover ' src={banner} fluid alt={"any"} />
+                  <Image loading="eager" className='z-[-1] w-full md:h-[600px] h-[500px] !object-cover ' src={banner} fluid alt={"any"} />
                
                </Link>
             </Carousel.Item>
             <Carousel.Item>
                <Link to='/browse_categories?category=pizza'>
-                  <Image className='z-[-1] w-full h-[500px] !object-cover ' src={banner1} fluid alt={"any"} />
+                  <Image loading="eager" className='z-[-1] w-full h-[500px] !object-cover ' src={banner1} fluid alt={"any"} />
                
                </Link>
             </Carousel.Item>
             <Carousel.Item>
                <Link to='/browse_categories?category=panini'>
-                  <Image className='z-[-1] w-full h-[500px] !object-cover ' src={banner2} fluid alt={"any"} />
+                  <Image loading="eager" className='z-[-1] w-full h-[500px] !object-cover ' src={banner2} fluid alt={"any"} />
                
                </Link>
             </Carousel.Item>
           
-            {/* <Carousel.Item>
-               <Link to='/browse-products/Maison%20-%20Cuisine%20-%20Deco'>
-                  <Image className='z-[-1] ' src={isMobile ? 'https://www.marjanemall.ma/media/wysiwyg/Mois-du-blanc/slider-mobile-linge-maison.webp' : "https://www.marjanemall.ma/media/wysiwyg/Mois-du-blanc/slider-linge-maison-desktop.webp" } fluid alt={"any"} />
-               
-               </Link>
-            </Carousel.Item>
-           
-            <Carousel.Item>
-               <Link to='/browse-boutique-brand/samsung'>
-                  <Image className='z-[-1] '  src={ isMobile ? 'https://www.marjanemall.ma/media/wysiwyg/Banner_subcateg_hp/Slider_Home_Page/Slider_SAMSUNG_mob_webp.webp' :  "https://www.marjanemall.ma/media/wysiwyg/Banner_subcateg_hp/Slider_Home_Page/Slider_SAMSUNG_desk.webp"} alt={"any"} fluid /> 
-               </Link>
-            </Carousel.Item>
-
             
-
-            <Carousel.Item>
-               <Link to='/browse-products/Beauté - Santé'>
-                  <Image className='z-[-1] ' src={ isMobile ? 'https://www.marjanemall.ma/media/wysiwyg/offre_vedd/mobile_CA.jpg' :  "https://www.marjanemall.ma/media/wysiwyg/complement-alimentaire/Slider_compl_ment_alimentaire_desktop.webp"} alt={"any"} fluid /> 
-               </Link>
-            </Carousel.Item> */}
        
     </Carousel>
     </div>

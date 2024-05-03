@@ -27,6 +27,7 @@ import ShippingModal from "@/components/models/ShippingModal";
 import { setCredentials } from "@/slices/usersSlice";
 
 import ProfileSkeleton from "@/components/Skeletons/ProfileSkeleton";
+import { Helmet } from "react-helmet-async";
 const Profile = () => {
    const [open,setOpen] = useState(false)
    const dispatch = useDispatch()
@@ -146,6 +147,10 @@ const handlePersonalInfoData = async(e)=> {
  if(fetching) return <ProfileSkeleton />
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
+       <Helmet>
+        <title>Mon Compte </title>
+       
+      </Helmet>
           <div className="max-w-[1400px] mx-auto">
              <div className="lg:py-10 py-3 lg:px-5 flex lg:flex-row flex-col">
                  

@@ -20,6 +20,7 @@ import { Alert, AlertTitle } from "@/components/ui/alert";
 import Card from "@/components/cards/Card";
 import AuthModel from "@/components/models/AuthModel";
 import ProductDetailsSkeleton from "@/components/Skeletons/ProductDetailsSkeleton";
+import { Helmet } from "react-helmet-async";
   
  const ProductDetails = () => {
  
@@ -190,6 +191,10 @@ import ProductDetailsSkeleton from "@/components/Skeletons/ProductDetailsSkeleto
   const pro = data?.wishlist?.productIds?.find((item)=> item === product._id);
    return (
      <div className="flex flex-col py-5 w-full relative ">
+      <Helmet>
+        <title>{product?.name || ""} </title>
+        <meta name="description" content={product?.description || ""} />
+      </Helmet>
           <Link className=" max-w-[1400px] sm:mx-[50px] mb-5 mx-[15px] " to='/'>
              <p className="text-[#00afaa] w-fit font-medium hover:underline "> Accueil</p>
           </Link>

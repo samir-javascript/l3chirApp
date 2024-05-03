@@ -1,5 +1,5 @@
 import User from "../models/userModel.js";
-import Product from "../models/productModel.js"
+
 import Order from "../models/orderModel.js"
 import Token from "../models/tokenModel.js";
 import { generateToken } from "../utils/generateJWT.js";
@@ -92,7 +92,7 @@ export const registerUser =  asyncHandler (async(req,res)=> {
                 email: user.email,
               
                
-                saved: user.saved
+               
             })
         }else {
            res.status(401)
@@ -238,7 +238,15 @@ export const updateImageProfile = asyncHandler( async(req,res)=> {
          res.status(404)
          throw new Error('User not found')
        }
-       user.picture = picture;
+       const result = await cloudinary.uploader.upload(picture , {
+         upload_preset: 'l3chir',
+              transformation: [
+                {crop: "scale"},
+                {quality: "auto"},
+                {fetch_format: "auto"},
+              ]
+       })
+       user.picture = result.secure_url;
        const updatedUser = await user.save()
        res.status(200).json(updatedUser)
     
@@ -340,7 +348,7 @@ export const getUsersWithOrders = asyncHandler( async(req,res)=> {
    userOrdersAggregate.forEach((result)=> {
         userIdToAmountMap.set(result._id.toString(), result.totalAmountSpent)
    })
-   console.log( Array.from(userIdToAmountMap.keys()) )
+   
     const usersIds = Array.from(userIdToAmountMap.keys()) 
     const usersWithOrders = await User.find({
       _id: {$in: usersIds}

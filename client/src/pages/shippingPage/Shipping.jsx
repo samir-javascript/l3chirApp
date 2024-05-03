@@ -12,6 +12,7 @@ import { useState, useEffect } from "react"
 import { toast } from "@/components/ui/use-toast"
 import { useGetShipping_addressQuery } from "@/slices/shippingApiSlice"
 import LoadingState from "@/components/shared/Loader"
+import { Helmet } from "react-helmet-async"
 const Shipping = () => {
   const {cartItems} = useSelector(state => state.cart)
  // const { shippingAddress } = useSelector(state => state.cart)
@@ -102,6 +103,10 @@ const Shipping = () => {
   
   return (
     <div className="w-full h-full py-10">
+       <Helmet>
+        <title>Checkout </title>
+      
+      </Helmet>
        <div className="max-w-[1400px] mx-auto flex flex-col ">
           <div className="flex w-full mx-3 items-center gap-1">
               <Link className="text-[#00afaa] font-semibold text-base hover:underline " to="/">Home</Link>

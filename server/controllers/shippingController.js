@@ -99,6 +99,4 @@ export const getTestimoniols = asyncHandler (async(req,res)=> {
         throw new Error('Internal server error',error)
       
     }
-        
-        
 })

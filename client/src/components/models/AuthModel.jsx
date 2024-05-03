@@ -234,7 +234,7 @@ return (
         <Card className="!border-none  ">
           <CardHeader> 
             <CardTitle className="text-center text-black font-bold text-[30px] mb-2 ">Password reset</CardTitle>
-            <p className="mt-1 font-semibold text-[#111] leading-[1.7] text-sm ">Fill in the email address corresponding to your StarShinerS account below</p>
+            <p className="mt-1 font-semibold text-[#111] leading-[1.7] text-sm ">Fill in the email address corresponding to your l3chir account below</p>
             
           </CardHeader>
           <CardContent className="space-y-2">

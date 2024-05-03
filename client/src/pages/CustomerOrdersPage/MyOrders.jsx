@@ -9,6 +9,7 @@ import { Image } from "react-bootstrap";
 import ProfileMobileTabs from "@/components/shared/ProfileMobileTabs";
 
 import ProfileSkeleton from "@/components/Skeletons/ProfileSkeleton";
+import { Helmet } from "react-helmet-async";
 const MyOrders = () => {
     const { userInfo } = useSelector(state => state.auth)
     const id = userInfo._id
@@ -18,6 +19,10 @@ const MyOrders = () => {
    
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
+       <Helmet>
+        <title>Mes commandes</title>
+      
+      </Helmet>
     <div className="max-w-[1400px] mx-auto">
        <div className="lg:py-10 py-3 lg:px-5 flex lg:flex-row flex-col">
            

@@ -66,7 +66,7 @@ export const getWishlistItems = asyncHandler(async (req, res) => {
       {
         $project: {
           _id: 0,
-          userId: 1,
+          user: 1,
           products: {
             $slice: ['$products', (page - 1) * pageSize, pageSize]
           },
@@ -75,7 +75,7 @@ export const getWishlistItems = asyncHandler(async (req, res) => {
         },
       },
     ]);
-
+ // lookup group unwind project
     const totalProductsCount = wishlist[0]?.totalProducts;
     const totalPages = Math.ceil(totalProductsCount / pageSize);
 

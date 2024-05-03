@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 
 
@@ -12,6 +13,7 @@ import ProfileMobileTabs from "@/components/shared/ProfileMobileTabs";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import LoadingState from "@/components/shared/Loader";
 import WishlistSkeleton from "@/components/Skeletons/WishlistSkeleton";
+import { Helmet } from "react-helmet-async";
 
 const Wishlist = () => {
       const { search } = useLocation()
@@ -23,6 +25,11 @@ const Wishlist = () => {
  
   return (
     <div className="w-full !bg-[#f5f5f5] h-full relative">
+             <Helmet>
+        <title>Ma list d'envie </title>
+      
+      </Helmet>
+
           <div className="max-w-[1400px] mx-auto">
              <div className="py-10 lg:px-5 flex lg:flex-row flex-col">
                  

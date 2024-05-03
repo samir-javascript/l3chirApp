@@ -17,10 +17,6 @@ const UserSchema = new mongoose.Schema({
     picture: {
         type: String,
     },
-    saved: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product"
-    }],
     firstName: {
         type: String,
     },

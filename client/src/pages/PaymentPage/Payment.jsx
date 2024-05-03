@@ -11,6 +11,7 @@ import { Alert, AlertTitle } from "@/components/ui/alert"
   
 import { Accordion, Image } from "react-bootstrap"
 import LoadingState from "@/components/shared/Loader"
+import { Helmet } from "react-helmet-async"
 const Payment = () => {
     const { id } = useParams()
     const {userInfo} = useSelector(state  => state.auth)
@@ -20,6 +21,10 @@ const Payment = () => {
     console.log(data,"order")
   return (
     <div className="h-screen w-full  relative">
+         <Helmet>
+        <title>paiment de commande sur l3chir</title>
+      
+      </Helmet>
         <div className="max-w-[1400px] mx-auto">
               <div className="flex h-full  w-full lg:flex-row flex-col gap-4">
                    {/* colomn 1 */}
@@ -174,11 +179,18 @@ const Payment = () => {
                                  </div>
                             </div>
                          </div>
-                         <Link className="mt-5" to='/'>
-                         <Button className='bg-[#00afaa] rounded-[5px] hover:bg-initial hover:scale-[1.02] transition-all duration-200 text-white ' type="button">
+                         <div className="mt-5 flex items-center gap-2" >
+                            <Link to="/">
+                         <Button className='bg-transparent border text-[#00afaa] rounded-[5px] hover:bg-initial hover:scale-[1.02] transition-all duration-200  ' type="button">
                          Retour à la boutique
                          </Button>
                          </Link>
+                         <Link to="/sales/history">
+                         <Button className='bg-[#00afaa] rounded-[5px] hover:bg-initial hover:scale-[1.02] transition-all duration-200 text-white ' type="button">
+                         Voir mes commandes
+                         </Button>
+                         </Link>
+                         </div>
                         
                     </div>
                     {/* colomn 2 */}
