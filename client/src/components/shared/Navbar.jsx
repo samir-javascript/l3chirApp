@@ -97,6 +97,17 @@ const Navbar = () => {
           </div>
            <div className="lg:hidden flex items-center gap-4">
            {/* <FaSearch className="font-bold cursor-pointer" color='gray' size={25} /> */}
+           <Link  className=" transition-all duration-300 ease-out text-[#0aafaa]" to={"/admin/dashboard"} >
+                 <li className="flex flex-col  items-center gap-1">
+                 <img className="w-[24px] h-[24px] object-contain " src={admin} alt="admin picture" />
+                     
+                      <p  className=" text-base whitespace-nowrap font-medium leading-[1.7] " >
+                          Admin
+                      </p>
+
+                   
+                 </li>
+                 </Link>
            <FaRegHeart onClick={()=> {
               if(!userInfo) {
                   setOpen(true)
