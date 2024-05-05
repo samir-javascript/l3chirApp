@@ -25,9 +25,17 @@ const ProductsList = () => {
     const [productId,setProductId] = useState('')
     const {data:product, isLoading:fetching} = useGetProductByIdQuery(productId)
     const handleDeleteProduct = async(id)=> {
+      setProductId(id) 
+      // const splettedData = productId &&  product?.images.map(image => {
+      //   const data = image.split("/")
+      //   const lastItem = data[data.length - 1]
+      //   const publicId = lastItem.split(".")
+      // return publicId[0]
+      //  })
        try {
          const res = await deleteProduct({
-          productId: id
+          productId : id,
+         
          })
          if(res.error) {
             toast({
@@ -44,7 +52,9 @@ const ProductsList = () => {
          console.log(error)
        }
     }
+   
    if(isLoading || fetching) return <LoadingState />
+  
   return (
     <div className="flex w-full h-full bg-[#101538] flex-col">
     <AdminNavbar open={open} setOpen={setOpen} />
@@ -89,7 +99,7 @@ const ProductsList = () => {
                {data.products.map(product => (
  <tr key={product._id}>
  <td className="w-full  flex  justify-center items-center">
-     <img className="w-[70px] h-auto object-cover rounded-[8px] " src={product.images[0]} alt={product.name} />
+     <img className="w-[70px] h-auto object-cover rounded-[8px] " src={product.images[0].secure_url} alt={product.name} />
  </td>
  <td>
      <p className=' max-sm:text-sm font-medium line-clamp-2 text-base '>

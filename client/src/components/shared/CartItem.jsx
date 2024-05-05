@@ -26,7 +26,7 @@ const CartItem = ({item}) => {
         <div className="w-[120px] h-[120px] rounded-xl bg-[#f5f5f5] m-3 mb-1  flex items-center justify-center
         
         ">
-               <Image fluid src={item.images[0]} className="object-cover rounded-xl w-[100%] h-[100%]" />
+               <Image fluid src={item.images[0].secure_url} className="object-cover rounded-xl w-[100%] h-[100%]" />
         </div>
           <div className="flex-1 w-full flex p-3 flex-col gap-2 h-full ">
                <p className="text-[333] font-medium text-[15px]  ">{item.name} </p>

@@ -202,55 +202,126 @@ export const getCurrentUser = asyncHandler( async(req,res)=> {
 // Route: /profile
 // method: PUT
 // private route
-export const updateMyProfile = asyncHandler (async(req,res)=> {
+// export const updateMyProfile = asyncHandler (async(req,res)=> {
     
-       const { email, username, picture} = req.body;
-       const user = await User.findById(req.user._id)
-       if(!user) {
-          res.status(404)
-          throw new Error('User not found')
-       }
-       const result = await cloudinary.uploader.upload(picture , {
-         upload_preset: 'l3chir',
-              transformation: [
-                {crop: "scale"},
-                {quality: "auto"},
-                {fetch_format: "auto"},
-              ]
-       })
+//        const { email, username, picture} = req.body;
+//        const user = await User.findById(req.user._id)
+//        if(!user) {
+//           res.status(404)
+//           throw new Error('User not found')
+//        }
 
-       if(req.password) {
-          user.password = req.password;
-       }
-       user.username = username || user.username;
-       user.email = email || user.email;
-       user.picture = result.secure_url;
-       const updatedUser = await user.save()
-       res.status(200).json(updatedUser)
+//        const result = await cloudinary.uploader.upload(picture , {
+//          upload_preset: 'l3chir',
+//               transformation: [
+//                 {crop: "scale"},
+//                 {quality: "auto"},
+//                 {fetch_format: "auto"},
+//               ]
+//        })
+//        const { secure_url, public_id} = result;
+
+//        if(req.password) {
+//           user.password = req.password;
+//        }
+//        user.username = username || user.username;
+//        user.email = email || user.email;
+//        user.picture = {
+//           secure_url: secure_url,
+//           public_id: public_id
+//        };
+//        const updatedUser = await user.save()
+//        res.status(200).json(updatedUser)
    
-})
+// })
+export const updateMyProfile = asyncHandler(async (req, res) => {
+   const { email, username, picture } = req.body;
+   const user = await User.findById(req.user._id);
+ 
+   if (!user) {
+     res.status(404);
+     throw new Error('User not found');
+   }
+ 
+   // If a new picture is provided in the request body, upload it to Cloudinary
+   let secure_url, public_id;
+   if (picture) {
+     const result = await cloudinary.uploader.upload(picture, {
+       upload_preset: 'l3chir',
+       transformation: [
+         { crop: "scale" },
+         { quality: "auto" },
+         { fetch_format: "auto" },
+       ]
+     });
+ 
+     secure_url = result.secure_url;
+     public_id = result.public_id;
+   }
+ 
+   // If the user has an existing picture and a new picture is provided,
+   // delete the old picture from Cloudinary
+   if (user.picture && user.picture.public_id && picture) {
+     await cloudinary.uploader.destroy(user.picture.public_id);
+   }
+ 
+   // Update user details with new picture
+   if (req.password) {
+     user.password = req.password;
+   }
+   user.username = username || user.username;
+   user.email = email || user.email;
+   
+   // Set the user's picture only if a new picture exists
+   if (picture) {
+     user.picture = {
+       secure_url: secure_url,
+       public_id: public_id
+     };
+   }
+ 
+   // Save the updated user
+   const updatedUser = await user.save();
+   res.status(200).json(updatedUser);
+ });
+ 
 
-export const updateImageProfile = asyncHandler( async(req,res)=> {
-    
-      const { picture } = req.body;
-       const user = await User.findById(req.user._id)
-       if(!user) {
-         res.status(404)
-         throw new Error('User not found')
-       }
-       const result = await cloudinary.uploader.upload(picture , {
-         upload_preset: 'l3chir',
-              transformation: [
-                {crop: "scale"},
-                {quality: "auto"},
-                {fetch_format: "auto"},
-              ]
-       })
-       user.picture = result.secure_url;
-       const updatedUser = await user.save()
-       res.status(200).json(updatedUser)
-    
-})
+export const updateImageProfile = asyncHandler(async (req, res) => {
+   const { picture } = req.body;
+   const user = await User.findById(req.user._id);
+   if (!user) {
+       res.status(404);
+       throw new Error('User not found');
+   }
+   
+   // Delete old picture from Cloudinary
+   if (user.picture && user.picture.public_id) {
+      const es = await cloudinary.uploader.destroy(user.picture.public_id);
+      console.log(es, "es")
+   }
+   
+   // Upload new picture to Cloudinary
+   const result = await cloudinary.uploader.upload(picture, {
+       upload_preset: 'l3chir',
+       transformation: [
+           { crop: "scale" },
+           { quality: "auto" },
+           { fetch_format: "auto" },
+       ]
+   });
+   
+   const { secure_url, public_id } = result;
+   
+   // Update user's profile picture in the database
+   user.picture = {
+       secure_url: secure_url,
+       public_id: public_id
+   };
+   
+   const updatedUser = await user.save();
+   res.status(200).json(updatedUser);
+});
+
 export const savePersonalData = asyncHandler (async(req,res)=> {
  
       const { phoneNumber, firstName, lastName} = req.body;
@@ -275,6 +346,7 @@ export const deleteUser = asyncHandler( async(req,res)=> {
        const user = await User.findById(userId)
        
        if(user && !user.isAdmin) {
+         await cloudinary.uploader.destroy(user.picture.public_id)
          await User.findByIdAndDelete(user._id)
          res.status(200).json({message: "user has been deleted successfuly"})
        }else {

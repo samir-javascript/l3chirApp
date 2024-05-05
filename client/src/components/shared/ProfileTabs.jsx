@@ -18,7 +18,7 @@ import { useUpdateProfilePictureMutation } from "@/slices/UsersApiSlice";
 
 const ProfileImage = () => {
   const { userInfo } = useSelector(state => state.auth);
-  const [fileUrl, setFileUrl] = useState(userInfo?.picture);
+  const [fileUrl, setFileUrl] = useState(userInfo?.picture?.secure_url);
   const dispatch = useDispatch();
   const [UpdatePicture, { isLoading }] = useUpdateProfilePictureMutation();
 

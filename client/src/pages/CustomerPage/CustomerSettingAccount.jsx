@@ -25,7 +25,7 @@ const CustomerSettingAccount = () => {
       if(userInfo) {
          setEmail(userInfo.email)
          setUserName(userInfo.username)
-         setPicture(userInfo?.picture)
+         setPicture(userInfo?.picture?.secure_url)
       }
        
    },[userInfo])
@@ -95,24 +95,24 @@ const CustomerSettingAccount = () => {
                         <h2 className="font-semibold text-black text-xl mb-5 ">Edit my profile</h2>
                         <div className="items-start flex lg:flex-row flex-col gap-5 w-full">
                              <div>
-                                  <UploadProfile mediaUrl={userInfo?.picture} setImage={setPicture} />
+                                  <UploadProfile mediaUrl={userInfo?.picture?.secure_url} setImage={setPicture} />
                              </div>
                              <form onSubmit={handleUpdateProfile} className="flex w-full flex-1 flex-col gap-3">
                                    <div className="max-w-[500px] flex flex-col gap-2 ">
                                       <Label>Email Address</Label>
-                                      <Input type="email" value={email} onChange={(e)=> setEmail(e.target.value)} />
+                                      <Input className="bg-gray-100" type="email" value={email} onChange={(e)=> setEmail(e.target.value)} />
                                    </div>
                                    <div className="max-w-[500px] flex flex-col gap-2 ">
                                       <Label>UserName</Label>
-                                      <Input type="text" value={UserName} onChange={(e)=> setUserName(e.target.value)} />
+                                      <Input className="bg-gray-100" type="text" value={UserName} onChange={(e)=> setUserName(e.target.value)} />
                                    </div>
                                    <div className="max-w-[500px] flex flex-col gap-2 ">
                                       <Label>New Password</Label>
-                                      <Input type="password" value={newPassword} onChange={(e)=> setNewPassword(e.target.value)} />
+                                      <Input className="bg-gray-100" type="password" value={newPassword} onChange={(e)=> setNewPassword(e.target.value)} />
                                    </div>
                                    <div className="max-w-[500px] flex flex-col gap-2 ">
                                       <Label>Confirm Password</Label>
-                                      <Input type="password" value={confirmNewPassword} onChange={(e)=> setConfirmNewPassword(e.target.value)}/>
+                                      <Input className="bg-gray-100" type="password" value={confirmNewPassword} onChange={(e)=> setConfirmNewPassword(e.target.value)}/>
                                    </div>
                                    <Button disabled={isLoading} className="bg-[#00affa] w-fit mt-2 rounded-[5px] font-semibold text-base text-white " type="submit">
                                      {isLoading ? <img src={loader} alt="loading..." className="w-[35px] h-[35px] " /> : "Update Profile"}  

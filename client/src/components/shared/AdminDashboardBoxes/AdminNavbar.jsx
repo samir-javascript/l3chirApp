@@ -30,7 +30,7 @@ const AdminNavbar = ({open,setOpen}) => {
                 <MdOutlineLightMode className="md:block hidden" color='white' size={25} />
                 <IoMdSettings className="md:block hidden" color='white' size={25} />
                 <div className="bg-[#081432]  flex items-center gap-3 p-2 rounded-[5px] ">
-                     <Image src={currentUser?.picture  || "https://www.github.com/shadcn.png"} alt='profile admin picture' className="w-[45px] h-[45px] object-contain rounded-full " />
+                     <Image src={currentUser?.picture?.secure_url  || "https://www.github.com/shadcn.png"} alt='profile admin picture' className="w-[45px] h-[45px] object-contain rounded-full " />
                       <div className="flex flex-col">
                             <p className="text-base font-semibold text-blue-700 whitespace-nowrap capitalize ">
                                {currentUser?.username}

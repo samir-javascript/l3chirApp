@@ -17,7 +17,7 @@ const ProfileMobileTabs = () => {
     console.log(userInfo, "userinfo")
     const {pathname} = useLocation()
     const profileTabs = [
-        { title: 'mon compte', url: "/profile", icon: userInfo ? <img className="md:w-[100px] md:h-[100px] w-[70px] h-[70px] rounded-full object-cover " src={userInfo?.picture || "https://www.github.com/shadcn.png"} alt={userInfo?.username} /> : <FaUser size={40}  /> },
+        { title: 'mon compte', url: "/profile", icon: userInfo ? <img className="md:w-[100px] md:h-[100px] w-[70px] h-[70px] rounded-full object-cover " src={userInfo?.picture?.secure_url || "https://www.github.com/shadcn.png"} alt={userInfo?.username} /> : <FaUser size={40}  /> },
         { title: 'mes commandes', url: '/sales/history',icon: <FaShopify  size={40}  /> },
         { title: "Ma liste d'envie", url: "/browse_wishlist-items"  , icon: <FaHeart size={40}   />},
         { title: "information du compte", url: "/customer/account/edit",icon: <MdAccountCircle size={40}  />},

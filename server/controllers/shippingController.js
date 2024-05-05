@@ -2,7 +2,8 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Shipping from "../models/shippingModel.js";
 import Testimonials from "../models/testemoniolModel.js";
-
+import HeroBannerImages from "../models/HeroImagesBanner.js"
+import cloudinary from "../utils/cloudinary.js"
 import User from '../models/userModel.js'
 export const createShipping = asyncHandler( async(req,res)=> {
    
@@ -100,3 +101,46 @@ export const getTestimoniols = asyncHandler (async(req,res)=> {
       
     }
 })
+
+
+export const addImageBanner = asyncHandler(async(req,res)=> {
+    try {
+        const { alt, image} = req.body;
+       
+        const result = await cloudinary.uploader.upload(image , {
+            upload_preset: 'l3chir',
+            transformation: [
+                {crop: "scale"},
+                {quality: "auto"},
+                {fetch_format: "auto"},
+            ]
+        });
+        
+        const { public_id, secure_url } = result;
+     
+        // Destructure public_id and secure_url from result
+        
+        const data = [
+            {
+                alt: alt,
+                image: {
+                    secure_url: secure_url,
+                    public_id: public_id
+                }
+            }
+        ];
+        
+        const imageBanner = await HeroBannerImages.create({
+            images: data
+        });
+        
+        if(!imageBanner) {
+            throw new Error('Failed to create hero banner image');
+        }
+        
+        res.status(201).json(imageBanner);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' }); // Send error response with status code 500
+    }
+});

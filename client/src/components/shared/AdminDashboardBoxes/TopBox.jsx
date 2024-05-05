@@ -22,7 +22,7 @@ const TopBox = () => {
                     <div className="flex items-center gap-2">
                     <Avatar>
 
- {item?.user?.picture ? (  <AvatarImage src={item?.user?.picture} />):(  <AvatarImage src={"https://github.com/shadcn.png"} />)} <AvatarFallback><AvatarImage src={"https://github.com/shadcn.png"} /></AvatarFallback>
+ {item?.user?.picture ? (  <AvatarImage src={item?.user?.picture?.secure_url} />):(  <AvatarImage src={"https://github.com/shadcn.png"} />)} <AvatarFallback><AvatarImage src={"https://github.com/shadcn.png"} /></AvatarFallback>
 </Avatar>
     <div className="flex flex-col">
        <p className="text-white font-semibold text-sm ">{item?.user?.username} </p>

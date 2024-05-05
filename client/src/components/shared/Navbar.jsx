@@ -25,7 +25,7 @@ const Navbar = () => {
       label: "Mon compte",
       value: 'mon compte',
       route: "/profile",
-      icon: userInfo ? <img className="w-[28px] h-[28px] rounded-full object-cover " src={userInfo?.picture || "https://github.com/shadcn.png"} alt={userInfo?.username} /> : <FaUser  size={28} />
+      icon: userInfo ? <img className="w-[28px] h-[28px] rounded-full object-cover " src={userInfo?.picture?.secure_url || "https://github.com/shadcn.png"} alt={userInfo?.username} /> : <FaUser  size={28} />
     },
     
     {
@@ -97,17 +97,20 @@ const Navbar = () => {
           </div>
            <div className="lg:hidden flex items-center gap-4">
            {/* <FaSearch className="font-bold cursor-pointer" color='gray' size={25} /> */}
-           <Link  className=" transition-all duration-300 ease-out text-[#0aafaa]" to={"/admin/dashboard"} >
-                 <li className="flex flex-col  items-center gap-1">
-                 <img className="w-[24px] h-[24px] object-contain " src={admin} alt="admin picture" />
-                     
-                      <p  className=" text-base whitespace-nowrap font-medium leading-[1.7] " >
-                          Admin
-                      </p>
+           {userInfo  && userInfo.isAdmin && (
+ <Link  className=" transition-all duration-300 ease-out text-[#0aafaa]" to={"/admin/dashboard"} >
+ <li className="flex flex-col  items-center gap-1">
+ <img className="w-[24px] h-[24px] object-contain " src={admin} alt="admin picture" />
+     
+      <p  className=" text-base whitespace-nowrap font-medium leading-[1.7] " >
+          Admin
+      </p>
 
-                   
-                 </li>
-                 </Link>
+   
+ </li>
+ </Link>
+           )}
+          
            <FaRegHeart onClick={()=> {
               if(!userInfo) {
                   setOpen(true)
@@ -124,7 +127,7 @@ const Navbar = () => {
                   </p>
              </div>
            </Link>
-          {userInfo ? <Link to="/profile"><img className="w-[28px] h-[28px] rounded-full object-cover " src={userInfo?.picture || "https://github.com/shadcn.png"} alt={userInfo?.username} /> </Link> : <FaUser onClick={()=> setOpen(true)}  size={28} />}
+          {userInfo ? <Link to="/profile"><img className="w-[28px] h-[28px] rounded-full object-cover " src={userInfo?.picture?.secure_url || "https://github.com/shadcn.png"} alt={userInfo?.username} /> </Link> : <FaUser onClick={()=> setOpen(true)}  size={28} />}
            {/* <FiMenu className="font-bold lg:hidden cursor-pointer" color='black' size={25} /> */}
              
              

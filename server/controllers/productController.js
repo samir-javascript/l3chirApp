@@ -10,17 +10,11 @@ export const createProduct = asyncHandler (async (req,res)=>  {
          const images = req.body.images || [];
         
            // Use Promise.all to handle multiple image uploads concurrently
-           const result = await Promise.all(images.map(async (image) => {
-             const result = await cloudinary.uploader.upload(image, {
-              upload_preset: 'l3chir',
-              transformation: [
-                {crop: "scale"},
-                {quality: "auto"},
-                {fetch_format: "auto"},
-              ]
-             });
-             return result.secure_url;
-           }));
+          
+           const result = await Promise.all(images.map(async(image)=> {
+            const { secure_url, public_id } = await uploadImageToCloudinary(image);
+            return { secure_url, public_id };
+           }))
           
           if(type !== "food") {
             const product = await Product.create({
@@ -29,7 +23,7 @@ export const createProduct = asyncHandler (async (req,res)=>  {
                  description,
                  type,
                  prevPrice,
-                 images:result,
+                 images: result,
                  category
               })
               if(!product) {
@@ -106,6 +100,17 @@ export const createProduct = asyncHandler (async (req,res)=>  {
        
     
  })
+ async function uploadImageToCloudinary(image) {
+  const result = await cloudinary.uploader.upload(image, {
+    upload_preset: 'l3chir',
+    transformation: [
+      { crop: 'scale' },
+      { quality: 'auto' },
+      { fetch_format: 'auto' },
+    ],
+  });
+  return { secure_url: result.secure_url, public_id: result.public_id };
+}
 export const getProducts = asyncHandler( async(req,res)=> {
   const page = Number(req.query.pageNumber) || 1;
   const pageSize = 12;
@@ -117,43 +122,93 @@ export const getProducts = asyncHandler( async(req,res)=> {
 
         .limit(pageSize)
         .skip(skipAmount)
-        .sort({createdAt: -1})
+       
         res.status(200).json({products,page, count,pages:Math.ceil(count / pageSize)})
    
 })
-export const updateProduct = asyncHandler (async(req,res)=>  {
+// export const updateProduct = asyncHandler (async(req,res)=>  {
    
-        const { name, description, category, price, productId, prevPrice, images} = req.body;
-        const product = await Product.findById(productId)
-        if(product) {
-           
-                const result = await Promise.all(images.map(async(image)=> {
-                    const res = await cloudinary.uploader.upload(image, {
-                        upload_preset: "l3chir",
-                        transformation: [
-                            {crop: "scale"},
-                            {quality: "auto"},
-                            {fetch_format: "auto"},
-                          ]
-                    })
-                    return res.secure_url
-                }))
+//         const { name, description, category, price, productId, prevPrice, images} = req.body;
+//         const product = await Product.findById(productId)
+//         if(product) {
+                
+//                 const result = await Promise.all(images.map(async(image)=> {
+//                     const res = await cloudinary.uploader.upload(image, {
+//                         upload_preset: "l3chir",
+//                         transformation: [
+//                             {crop: "scale"},
+//                             {quality: "auto"},
+//                             {fetch_format: "auto"},
+//                           ]
+//                     })
+//                     return res
+//                 }))
             
-            product.name = name;
-            product.description = description;
-            product.price = price;
-            product.prevPrice = prevPrice;
-            product.category = category;
-            product.images = result || product.images;
-           const updatedProduct = await product.save()
-           res.status(200).json(updatedProduct)
-        }else {
-            res.status(404)
-            throw new Error('Product not found')
-        }
+//             product.name = name;
+//             product.description = description;
+//             product.price = price;
+//             product.prevPrice = prevPrice;
+//             product.category = category;
+//             product.images = result || product.images;
+//            const updatedProduct = await product.save()
+//            res.status(200).json(updatedProduct)
+//         }else {
+//             res.status(404)
+//             throw new Error('Product not found')
+//         }
 
     
-})
+// })
+export const updateProduct = asyncHandler(async (req, res) => {
+  const { name, description, category, price, productId, prevPrice, images } = req.body;
+  const product = await Product.findById(productId);
+
+  if (!product) {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+
+  // If images are provided in the request body, upload them to Cloudinary and update the product
+  if (images && images.length > 0) {
+    // Upload new images to Cloudinary
+    const uploadedImages = await Promise.all(images.map(async (image) => {
+      const res = await cloudinary.uploader.upload(image, {
+        upload_preset: "l3chir",
+        transformation: [
+          { crop: "scale" },
+          { quality: "auto" },
+          { fetch_format: "auto" },
+        ]
+      });
+    
+      // Extract only public_id and secure_url from the response
+      const { public_id, secure_url } = res;
+      return { public_id, secure_url };
+    }));
+
+    // Delete old images from Cloudinary
+    if(product && product.images && images) {
+      const oldImagePublicIds = product.images.map(img => img.public_id);
+      const result = await cloudinary.api.delete_resources(oldImagePublicIds);
+      console.log(result,"delete result")
+    }
+    
+
+    // Update product with new images
+    product.images = uploadedImages;
+  }
+
+  // Update other product fields
+  product.name = name;
+  product.description = description;
+  product.price = price;
+  product.prevPrice = prevPrice;
+  product.category = category;
+
+  // Save the updated product
+  const updatedProduct = await product.save();
+  res.status(200).json(updatedProduct);
+});
 
 export const getProductById = asyncHandler (async(req,res)=> {
   
@@ -166,20 +221,36 @@ export const getProductById = asyncHandler (async(req,res)=> {
    
 })
 
-export const deleteProduct = asyncHandler (async(req,res)=> {
+export const deleteProduct = asyncHandler(async (req, res) => {
   const { productId} = req.body;
-    
-        const product = await Product.findById(productId)
-        if(product) {
-            await Product.findByIdAndDelete(product._id)
-            res.status(200).json({message: "product has been deleted"})
-        }else {
-          res.status(404)
-          throw new Error('Product not found')
-        }
-       
-    
-})
+
+  const product = await Product.findById(productId);
+  if (product) {
+      // Delete the product from the database
+      await Promise.all(
+        product.images.map(async (image) => {
+          try {
+          
+           
+         
+            const result = await cloudinary.uploader.destroy(image.public_id);
+            console.log(result); // Log the result of image deletion if needed
+          } catch (error) {
+            console.error(`Error deleting image: ${error.message}`);
+          }
+        })
+      );
+      await Product.findByIdAndDelete(product._id);
+
+      res.status(200).json({message: 'product was deleted successfuly'})
+     
+  } else {
+      res.status(404);
+      throw new Error('Product not found');
+  }
+});
+
+
 
 export const getProductsByCategory = asyncHandler( async(req,res)=> {
   const { categoryName} = req.params;

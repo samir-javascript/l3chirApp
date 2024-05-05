@@ -14,13 +14,14 @@ import { useCreateNewProductMutation, useUpdateProductMutation } from "@/slices/
 import { useEffect, useState, useRef } from "react"
 import { toast } from "../ui/use-toast"
 import { ImageIcon } from "lucide-react"
+import { Form } from "react-bootstrap"
 
 export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
     const [images,setImages] = useState([])
     //const [type,setType] = useState('')
     const [price,setPrice] = useState("")
     
-    const [genre,setGenre] = useState('')
+    const [genre,setGenre] = useState('food')
     const [name,setName] = useState("")
     const [createProduct,  {isLoading}] = useCreateNewProductMutation()
     const [updateProduct, {isLoading:updating}] = useUpdateProductMutation()
@@ -50,6 +51,7 @@ export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
            setPrevPrice(product.prevPrice)
            setSmallPrice(null)
               setMediumPrice(null)
+             
                setLargePrice(null)
            setDescription(product.description)
            setImages(product.images)
@@ -130,7 +132,8 @@ export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
                    smallPrice,
                    mediumPrice,
                    largePrice,
-                   prevPrice
+                   prevPrice,
+                   price
                  })
                  if(res.error) {
                     toast({
@@ -144,6 +147,7 @@ export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
                  setName("")
                  setDescription('')
                  setImages(null)
+                 setPrice(null)
                  setSmallPrice(null)
                  setMediumPrice(null)
                   setLargePrice(null)
@@ -167,10 +171,18 @@ export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
       <DialogContent className="sm:!w-[625px] lg:!w-full w-[325px] h-full overflow-y-auto  bg-white">
          <form  onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
           <div>
-          <select value={genre} onChange={(e) => setGenre(e.target.value)}>
-  <option value="food">Food</option>
-  <option value="jus">Jus</option>
-</select>
+        
+<Form.Group controlId='rating' className='my-2'>
+                             <Form.Label className="font-bold text-base font-Roboto text-[#4c4c4c]">Genre</Form.Label>
+                             <Form.Control  required as='select' value={genre}
+                              onChange={(e)=> setGenre(e.target.value)} >
+                               
+                                <option value={"food"}>Food</option>
+                                <option value={"jus"}>Jus</option>
+                                
+                                
+                             </Form.Control>
+                          </Form.Group>
           </div>
                <div className="flex  flex-col w-full gap-3 items-center lg:justify-between">
               <div className="space-y-1 w-full">
@@ -242,7 +254,7 @@ export function ProductModel({open,setOpen,type:stateType,product,refetch}) {
                required
                ref={inputFileRef}
                
-               hidden
+              
                disabled={isLoading || updating}
                 onChange={uploadFileHandler}
                 multiple />

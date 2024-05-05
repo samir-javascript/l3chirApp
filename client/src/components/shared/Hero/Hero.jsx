@@ -48,7 +48,9 @@ const Hero = () => {
                               <h1 className='text-[45px] whitespace-nowrap leading-[1.7] font-bold text-black capitalize '><span className='text-orange-500'>welcome to</span> l'3chir<span className='text-orange-500 text-3xl'>.</span></h1>
                               <h3 className='text-[30px] text-black font-semibold mt-2 capitalize'>the best fast food delivery in town.</h3>
                               <p className='mt-2 text-base leading-[1.7] text-[#232323] font-medium '>Indulge in Flavorful Delights! Order Now for Fresh & Fast Food Delivery Straight to Your Doorstep.</p>
+                              <Link className='z-50' to="/food_product/662ed4d38b0579190f32b597">
                               <Button className="bg-[#00afaa] text-white rounded-[5px] mt-2 z-50 ">Order now</Button>
+                              </Link>
                         </div>
                            <Image fluid  loading="eager" className='w-full h-full object-contain ' src={bannerGirl}   />
                     </div>

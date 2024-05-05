@@ -189,6 +189,11 @@ import { Helmet } from "react-helmet-async";
    
  </Alert>
   const pro = data?.wishlist?.productIds?.find((item)=> item === product._id);
+  
+  
+  
+  
+
    return (
      <div className="flex flex-col py-5 w-full relative ">
       <Helmet>
@@ -203,7 +208,7 @@ import { Helmet } from "react-helmet-async";
                 <div className="sm:mx-[30px] mx-[10px] ">
                       <Image className="w-full h-[500px] max-h-[100%] object-cover 
                        lg:w-[450px] flex-1 rounded-[20px] items-center justify-center
-                        " src={selectedImage} />
+                        " src={selectedImage.secure_url} />
                         <div className="max-w-full flex items-center justify-center mt-4 space-x-4">
                           {thumbnailImages.length >= 3 && (
  thumbnailImages.map((item, index) => (
@@ -213,7 +218,7 @@ import { Helmet } from "react-helmet-async";
     loading="lazy"
     className={`sm:w-[100px] object-cover sm:h-[100px] w-[110px] h-[120px]
      transition-all duration-150 rounded-[10px] cursor-pointer border border-gray-300`}
-    src={item}
+    src={item.secure_url}
     onClick={() => handleThumbnailClick(item)}
     alt={product.name}
   />

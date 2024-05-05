@@ -68,9 +68,9 @@ const [open,setOpen] = useState(false)
     <div className="w-[210px]  max-w-full  max-sm:w-[161px] min-h-auto h-[380px]   rounded-[15px]  flex flex-col shadow-sm border border-[#f5f5f5] ">
          <div className=" bg-[#f5f5f5]  relative flex items-center 
       justify-center w-full h-[210px] rounded-tl-[15px] rounded-tr-[15px] ">
-             <Image fluid className="w-auto aspect-auto h-full  rounded-tl-[15px]
+             <Image fluid className="w-full aspect-auto h-full  rounded-tl-[15px]
               rounded-tr-[15px] object-cover" 
-              alt='pic' src={product.images[0]}  />
+              alt='pic' src={product.images[0].secure_url}  />
               <div onClick={handleToggleWishlist} className="absolute
                cursor-pointer bottom-0 right-0 m-2 w-[35px] h-[35px]
                 rounded-full bg-white flex items-center justify-center ">

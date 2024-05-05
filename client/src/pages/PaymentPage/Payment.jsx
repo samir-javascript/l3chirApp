@@ -58,7 +58,7 @@ const Payment = () => {
                                <div className="bg-white w-[100px] h-[100px] rounded-[10px] flex items-center justify-center
                                   
                                ">
-                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0]} fluid />
+                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0].secure_url} fluid />
                                </div>
                                {/* for desktop */}
                                  <div className="flex   flex-1 flex-col justify-between h-full ">
@@ -84,7 +84,7 @@ const Payment = () => {
                                <div className=" w-[100px] h-[100px] rounded-[10px] flex items-center justify-center
                                    border border-[#333]
                                ">
-                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0]} fluid />
+                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0].secure_url} fluid />
                                </div>
                                {/* for desktop */}
                                  <div className="flex lg:hidden  flex-1 flex-col justify-between h-full ">
@@ -202,7 +202,7 @@ const Payment = () => {
                                <div className="bg-white w-[100px] h-[100px] rounded-[10px] flex items-center justify-center
                                   
                                ">
-                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0]} fluid />
+                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0].secure_url} fluid />
                                </div>
                                {/* for desktop */}
                                  <div className="flex   flex-1 flex-col justify-between h-full ">
@@ -228,7 +228,7 @@ const Payment = () => {
                                <div className=" w-[100px] h-[100px] rounded-[10px] flex items-center justify-center
                                    border border-[#333]
                                ">
-                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0]} fluid />
+                                  <Image className="object-cover rounded-[10px] w-full h-full" src={item.images[0].secure_url} fluid />
                                </div>
                                {/* for desktop */}
                                  <div className="flex lg:hidden  flex-1 flex-col justify-between h-full ">

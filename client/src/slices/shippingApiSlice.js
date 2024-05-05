@@ -46,9 +46,17 @@ export const shippingSlice = ApiSlice.injectEndpoints({
         }),
         keepUnusedDataFor : 5
       }),
-      
+      postHeroBanner: builder.mutation({
+        query: (data)=> ({
+            url: `${SHIPPING_URL}/add_imageBanner`,
+            method: "POST",
+            body: {...data}
+        }),
+        keepUnusedDataFor : 5
+      }),
+      providesTags: ['Shipping']
       
     })
-    // /get-social_proof
+    // /add_imageBanner
 })
-export const {useAddNewShipping_addressMutation, useGetReviewsQuery, useAddTestimonoilMutation, useEditShipping_addressMutation, useDeleteShipping_addressMutation, useGetShipping_addressQuery} = shippingSlice
+export const {useAddNewShipping_addressMutation, usePostHeroBannerMutation, useGetReviewsQuery, useAddTestimonoilMutation, useEditShipping_addressMutation, useDeleteShipping_addressMutation, useGetShipping_addressQuery} = shippingSlice

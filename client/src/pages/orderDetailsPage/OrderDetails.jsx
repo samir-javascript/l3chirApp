@@ -57,7 +57,7 @@ const OrderDetails = () => {
          {order.orderItems.map((item)=> (
            <div className="flex items-start justify-between gap-x-2" key={item._id}> 
                    <div className="lg:w-[110px] lg:h-[110px] w-[120px] h-[80px] border border-gray-400 rounded-md lg:m-3 my-3 mx-1 flex items-center justify-center  ">
-                         <Image src={item.images[0]} fluid className="object-cover w-full h-full rounded-md  " />
+                         <Image src={item.images[0].secure_url} fluid className="object-cover w-full h-full rounded-md  " />
                    </div>
                    <div className="w-full flex  flex-col flex-1   lg:m-3 my-3 ">
                         <p className="font-normal text-[15px] line-clamp-2 text-[#555] ">{item.name} </p>
